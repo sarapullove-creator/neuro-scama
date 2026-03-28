@@ -3,80 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ХОЗЯИН НЕЙРОСЕТЕЙ — ОФИЦИАЛЬНО</title>
+    <title>ХОЗЯИН НЕЙРОСЕТЕЙ — Твой Путь к Миллиардам (Серьезно)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: 'Arial Black', sans-serif; text-align: center; overflow-x: hidden; }
-        section { min-height: 100vh; padding: 50px 20px; border-bottom: 2px dashed #333; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        h1 { color: #ffd700; font-size: 3.5rem; text-transform: uppercase; margin: 0; text-shadow: 0 0 20px #ff0000; }
-        .gold-text { color: #ffd700; font-size: 1.5rem; margin: 20px; font-style: italic; }
-        .btn { background: linear-gradient(45deg, #ff4e50, #f9d423); border: none; padding: 25px 50px; font-size: 1.8rem; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 10px 30px rgba(255,215,0,0.5); text-decoration: none; color: #000; display: inline-block; }
-        .card { background: #111; border: 2px solid #ffd700; padding: 30px; margin: 20px; border-radius: 20px; max-width: 500px; }
-        .emoji { font-size: 5rem; margin: 10px; }
-        #runaway-input { position: relative; padding: 15px; border: 2px solid #ffd700; background: #222; color: #fff; border-radius: 10px; width: 280px; cursor: not-allowed; font-weight: bold; }
-        #chat-btn { position: fixed; bottom: 20px; right: 20px; width: 70px; height: 70px; background: #ffd700; border-radius: 50%; font-size: 3rem; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 4px solid #fff; z-index: 100; }
+        :root {
+            --gold: #ffd700;
+            --gold-light: #fcf6ba;
+            --gold-dark: #b38728;
+            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fcf6ba 75%, #aa771c 100%);
+            --dark-bg: #050505;
+            --glass: rgba(255, 215, 0, 0.03);
+            --glass-border: rgba(255, 215, 0, 0.15);
+        }
+
+        * { box-sizing: border-box; scroll-behavior: smooth; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Общие стили для секций */
+        section { min-height: 100vh; padding: 100px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+        h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 50px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
+        p.subtitle { font-size: 1.2rem; color: #aaa; max-width: 600px; margin-bottom: 40px; }
+
+        /* Кнопки */
+        .btn {
+            display: inline-block; padding: 20px 50px; font-size: 1.3rem; font-weight: 900; color: #000;
+            text-transform: uppercase; border-radius: 100px; cursor: pointer; text-decoration: none;
+            background: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%);
+            box-shadow: 0 15px 40px rgba(255, 78, 80, 0.3); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none; position: relative; z-index: 5;
+        }
+        .btn:hover { transform: scale(1.08) translateY(-5px); box-shadow: 0 20px 50px rgba(255, 215, 0, 0.5); }
+        .btn:active { transform: scale(0.98); }
+
+        /* --- СЕКЦИЯ 1: HERO (Главная) --- */
+        .hero { background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%); position: relative; overflow: hidden; text-align: center;}
+        h1 { font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 900; text-transform: uppercase; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 5px; margin-bottom: 10px; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)); }
+        .hero-tagline { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: var(--gold-light); margin-bottom: 40px; opacity: 0.8; }
+        .timer-box { font-size: 1.8rem; color: #ff4e50; font-weight: bold; border: 2px solid #ff4e50; padding: 15px 30px; border-radius: 15px; background: rgba(255, 78, 80, 0.05); margin-bottom: 40px; display: inline-block; }
+
+        /* --- СЕКЦИЯ 2: КРАСИВАЯ ЖИЗНЬ (Галерея) --- */
+        .gallery { background: #080808; text-align: center;}
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; width: 100%; max-width: 1200px; }
+        .gallery-item { position: relative; border-radius: 15px; overflow: hidden; border: 1px solid var(--glass-border); transition: 0.3s; height: 250px; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); filter: brightness(1.2); }
+        .gallery-caption { position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: var(--gold-light); font-weight: bold; font-size: 1.1rem; text-align: left; }
+
+        /* --- УБЕГАЮЩЕЕ ПОЛЕ (Спам) --- */
+        .input-container { position: relative; height: 120px; margin-top: 40px; display: flex; align-items: center; justify-content: center; width: 100%; max-width: 400px; }
+        #runaway-input { position: absolute; padding: 15px 25px; border: 2px solid var(--gold); background: #222; color: #fff; border-radius: 10px; cursor: not-allowed; width: 280px; font-size: 1rem; transition: all 0.1s ease; outline: none; box-shadow: 0 5px 20px rgba(255, 215, 0, 0.2); }
+
+        /* Фоновые деньги */
+        .money-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0.08; }
+        .symbol { position: absolute; color: var(--gold); font-weight: bold; animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <section>
-        <div class="emoji">👑</div>
+<div class="money-bg" id="money-box"></div>
+
+<section class="hero">
+    <div style="text-align: center;">
         <h1>ХОЗЯИН НЕЙРОСЕТЕЙ</h1>
-        <p class="gold-text">Твой последний шанс отдать нам деньги!</p>
-        <div id="timer" style="font-size: 2rem; color: #ff4e50; margin: 20px;">ДО КОНЦА АКЦИИ: 05:00</div>
-        <a href="#" class="btn" onclick="alert('УСПЕХ! Деньги списаны, ожидайте яхту в течение 100 лет!')">ХОЧУ ПОТЕРЯТЬ ДЕНЬГИ</a>
-        <p style="margin-top: 40px; color: #555;">Листай вниз за мечтой ↓</p>
-    </section>
+        <p class="hero-tagline">Твой последний шанс запрыгнуть в уходящий поезд миллиардеров</p>
+        <div class="timer-box" id="timer">Осталось мест по скидке: 04:59</div>
+        <br>
+        <a href="#buy" class="btn" onclick="alert('Спасибо! Мы зарезервировали ваши деньги. Ожидайте успешного успеха!')">ПОТЕРЯТЬ ДЕНЬГИ</a>
+        <p style="margin-top: 50px; color: #666; font-size: 0.9rem;">Начни скроллить, если готов к жизни мечты ↓</p>
+    </div>
+</section>
 
-    <section>
-        <h2>ТВОЯ ЖИЗНЬ ПОСЛЕ КУРСА:</h2>
-        <div class="card">
-            <div class="emoji">🚢</div>
-            <h3>ЛИЧНАЯ ЯХТА</h3>
-            <p>(Будет у Глеба, но ты сможешь на неё посмотреть в инсте)</p>
+<section class="gallery" id="buy">
+    <h2>ТВОЯ ЖИЗНЬ ПОСЕ КУРСА</h2>
+    <p class="subtitle">Это не фотостоки, это реальные будни наших учеников (наверное)</p>
+    <div class="gallery-grid">
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1567814734148-137c6c94614e?q=80&w=600&auto=format&fit=crop" alt="Яхта">
+            <div class="gallery-caption">Собственная суперъяхта</div>
         </div>
-        <div class="card">
-            <div class="emoji">🏝️</div>
-            <h3>ОСТРОВ БАЛИ</h3>
-            <p>Ты поедешь туда... когда-нибудь. Наверное.</p>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=600&auto=format&fit=crop" alt="Ламба">
+            <div class="gallery-caption">Гараж мечты</div>
         </div>
-        <div class="card">
-            <div class="emoji">💰</div>
-            <h3>КНОПКА "БАБЛО"</h3>
-            <p>Мы её нажали за тебя. Спасибо!</p>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1614088685112-0a760b71a3c8?q=80&w=600&auto=format&fit=crop" alt="Вилла">
+            <div class="gallery-caption">Вилла на Бали</div>
         </div>
-    </section>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1533038590840-1cde6e668a91?q=80&w=600&auto=format&fit=crop" alt="Джет">
+            <div class="gallery-caption">Частный самолет</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=600&auto=format&fit=crop" alt="Биржа">
+            <div class="gallery-caption">Торговля с нейросетями</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1512351735139-8c2676f3d085?q=80&w=600&auto=format&fit=crop" alt="Кофе">
+            <div class="gallery-caption">"Работа" из любой точки мира</div>
+        </div>
+    </div>
+</section>
 
-    <section>
-        <h2>ОТЗЫВЫ МИЛЛИОНЕРОВ:</h2>
-        <div class="card" style="font-style: italic;">
-            "Я продал квартиру и купил Вип-пакет. Теперь живу в коробке от холодильника, зато с нейросетями!" — <b>Вася, экс-инвестор</b>
-        </div>
-        <p>Оставь почту для ежедневного спама:</p>
-        <div style="height: 120px; width: 100%; position: relative;">
-            <input type="text" id="runaway-input" value="ВАША ПОЧТА..." readonly>
-        </div>
-    </section>
+<section style="background: #0a0a0a;">
+    <h2>ОСТАВЬ ПОЧТУ ДЛЯ СПАМА</h2>
+    <p class="subtitle">И получи бесплатный чек-лист "Как заработать на кредитах"</p>
+    <div class="input-container" id="box">
+        <input type="email" id="runaway-input" placeholder="Твоя почта для развода..." readonly>
+    </div>
+</section>
 
-    <div id="chat-btn" onclick="alert('Глеб сейчас занят покупкой новой Ламбы на ваши деньги. Попробуйте никогда!')">👨🏻‍💼</div>
+<script>
+    // 1. Таймер (бесконечный цикл 5 минут)
+    let time = 299; // 4:59 в секундах
+    setInterval(() => {
+        let m = Math.floor(time / 60);
+        let s = time % 60;
+        document.getElementById('timer').innerText = `Осталось мест по скидке: ${m}:${s < 10 ? '0'+s : s}`;
+        if(time > 0) time--; else time = 299; // Сброс
+    }, 1000);
 
-    <script>
-        // Таймер
-        let s = 300;
-        setInterval(() => {
-            let m = Math.floor(s/60);
-            let sec = s%60;
-            document.getElementById('timer').innerText = `ДО КОНЦА АКЦИИ: ${m}:${sec<10?'0'+sec:sec}`;
-            if(s>0) s--; else s=300;
-        }, 1000);
+    // 2. Убегающее поле (интерактив)
+    const inp = document.getElementById('runaway-input');
+    inp.onmouseover = () => {
+        const x = Math.random() * (window.innerWidth - 300);
+        const y = Math.random() * 80; // В пределах контейнера
+        inp.style.left = x + 'px';
+        inp.style.top = y + 'px';
+    };
 
-        // Убегающее поле
-        const inp = document.getElementById('runaway-input');
-        inp.onmouseover = () => {
-            inp.style.position = 'absolute';
-            inp.style.left = Math.random()*70 + '%';
-            inp.style.top = Math.random()*50 + 'px';
-        };
-    </script>
+    // 3. Падающие деньги на фоне
+    const mBox = document.getElementById('money-box');
+    for(let j=0; j<30; j++) {
+        let s = document.createElement('div');
+        s.className='symbol'; 
+        s.innerText = '$'; 
+        s.style.left = Math.random()*100+'vw';
+        s.style.top = Math.random()*-100+'vh'; // Начинаем выше экрана
+        s.style.fontSize = Math.random()*25+15+'px';
+        s.style.animationDuration = (Math.random()*4+4)+'s';
+        s.style.animationDelay = Math.random()*5+'s';
+        mBox.appendChild(s);
+    }
+</script>
 
 </body>
 </html>
