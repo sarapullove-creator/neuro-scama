@@ -3,156 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ХОЗЯИН НЕЙРОСЕТЕЙ — Твой Путь к Миллиардам (Серьезно)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <title>ХОЗЯИН НЕЙРОСЕТЕЙ 2026</title>
     <style>
-        :root {
-            --gold: #ffd700;
-            --gold-light: #fcf6ba;
-            --gold-dark: #b38728;
-            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fcf6ba 75%, #aa771c 100%);
-            --dark-bg: #050505;
-            --glass: rgba(255, 215, 0, 0.03);
-            --glass-border: rgba(255, 215, 0, 0.15);
-        }
-
-        * { box-sizing: border-box; scroll-behavior: smooth; margin: 0; padding: 0; }
+        :root { --gold: #ffd700; --dark: #0a0a0a; }
+        body { margin: 0; background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; text-align: center; overflow-x: hidden; }
         
-        body {
-            background-color: var(--dark-bg);
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+        /* Секции */
+        section { min-height: 100vh; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-bottom: 1px solid #222; }
+        h1 { font-size: 3.5rem; color: var(--gold); text-transform: uppercase; margin: 0; }
+        .btn { background: linear-gradient(45deg, #ff4e50, #f9d423); padding: 20px 40px; color: #000; font-weight: bold; border-radius: 50px; text-decoration: none; display: inline-block; margin: 20px; border: none; cursor: pointer; font-size: 1.2rem; }
 
-        /* Общие стили для секций */
-        section { min-height: 100vh; padding: 100px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
-        h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 50px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
-        p.subtitle { font-size: 1.2rem; color: #aaa; max-width: 600px; margin-bottom: 40px; }
+        /* Галерея */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; max-width: 1000px; margin-top: 30px; }
+        .card { background: #111; border: 1px solid var(--gold); border-radius: 15px; overflow: hidden; position: relative; height: 200px; }
+        .card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .card-text { position: absolute; bottom: 10px; left: 10px; font-weight: bold; background: rgba(0,0,0,0.7); padding: 5px; }
 
-        /* Кнопки */
-        .btn {
-            display: inline-block; padding: 20px 50px; font-size: 1.3rem; font-weight: 900; color: #000;
-            text-transform: uppercase; border-radius: 100px; cursor: pointer; text-decoration: none;
-            background: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%);
-            box-shadow: 0 15px 40px rgba(255, 78, 80, 0.3); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: none; position: relative; z-index: 5;
-        }
-        .btn:hover { transform: scale(1.08) translateY(-5px); box-shadow: 0 20px 50px rgba(255, 215, 0, 0.5); }
-        .btn:active { transform: scale(0.98); }
+        /* ЧАТ */
+        #chat-trigger { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--gold); border-radius: 50%; cursor: pointer; z-index: 1001; display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 3px solid #fff; }
+        #chat-window { position: fixed; bottom: 90px; right: 20px; width: 300px; height: 450px; background: #1a1a1a; border: 2px solid var(--gold); border-radius: 15px; display: none; flex-direction: column; z-index: 1000; box-shadow: 0 0 30px #000; }
+        .chat-header { background: #222; padding: 10px; font-weight: bold; color: var(--gold); border-bottom: 1px solid #333; }
+        #chat-msgs { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        .m { padding: 8px 12px; border-radius: 10px; font-size: 0.9rem; max-width: 80%; text-align: left; }
+        .m.gleb { background: #333; align-self: flex-start; }
+        .m.user { background: var(--gold); color: #000; align-self: flex-end; }
+        .chat-input { display: flex; padding: 10px; border-top: 1px solid #333; }
+        .chat-input input { flex: 1; padding: 8px; border: none; border-radius: 5px; outline: none; }
+        .chat-input button { background: var(--gold); border: none; margin-left: 5px; padding: 8px; border-radius: 5px; cursor: pointer; font-weight: bold; }
 
-        /* --- СЕКЦИЯ 1: HERO (Главная) --- */
-        .hero { background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%); position: relative; overflow: hidden; text-align: center;}
-        h1 { font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 900; text-transform: uppercase; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 5px; margin-bottom: 10px; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)); }
-        .hero-tagline { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: var(--gold-light); margin-bottom: 40px; opacity: 0.8; }
-        .timer-box { font-size: 1.8rem; color: #ff4e50; font-weight: bold; border: 2px solid #ff4e50; padding: 15px 30px; border-radius: 15px; background: rgba(255, 78, 80, 0.05); margin-bottom: 40px; display: inline-block; }
-
-        /* --- СЕКЦИЯ 2: КРАСИВАЯ ЖИЗНЬ (Галерея) --- */
-        .gallery { background: #080808; text-align: center;}
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; width: 100%; max-width: 1200px; }
-        .gallery-item { position: relative; border-radius: 15px; overflow: hidden; border: 1px solid var(--glass-border); transition: 0.3s; height: 250px; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .gallery-item:hover img { transform: scale(1.1); filter: brightness(1.2); }
-        .gallery-caption { position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: var(--gold-light); font-weight: bold; font-size: 1.1rem; text-align: left; }
-
-        /* --- УБЕГАЮЩЕЕ ПОЛЕ (Спам) --- */
-        .input-container { position: relative; height: 120px; margin-top: 40px; display: flex; align-items: center; justify-content: center; width: 100%; max-width: 400px; }
-        #runaway-input { position: absolute; padding: 15px 25px; border: 2px solid var(--gold); background: #222; color: #fff; border-radius: 10px; cursor: not-allowed; width: 280px; font-size: 1rem; transition: all 0.1s ease; outline: none; box-shadow: 0 5px 20px rgba(255, 215, 0, 0.2); }
-
-        /* Фоновые деньги */
-        .money-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0.08; }
-        .symbol { position: absolute; color: var(--gold); font-weight: bold; animation: fall linear infinite; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+        /* Убегающая форма */
+        #runaway { position: relative; padding: 10px; border: 1px solid var(--gold); background: #222; color: #fff; width: 200px; cursor: not-allowed; }
     </style>
 </head>
 <body>
 
-<div class="money-bg" id="money-box"></div>
-
-<section class="hero">
-    <div style="text-align: center;">
+    <section>
         <h1>ХОЗЯИН НЕЙРОСЕТЕЙ</h1>
-        <p class="hero-tagline">Твой последний шанс запрыгнуть в уходящий поезд миллиардеров</p>
-        <div class="timer-box" id="timer">Осталось мест по скидке: 04:59</div>
-        <br>
-        <a href="#buy" class="btn" onclick="alert('Спасибо! Мы зарезервировали ваши деньги. Ожидайте успешного успеха!')">ПОТЕРЯТЬ ДЕНЬГИ</a>
-        <p style="margin-top: 50px; color: #666; font-size: 0.9rem;">Начни скроллить, если готов к жизни мечты ↓</p>
+        <p style="color: #888;">Стань богатым, пока твой друг спит!</p>
+        <div id="timer" style="font-size: 2rem; color: #ff4e50; margin: 20px;">05:00</div>
+        <button class="btn" onclick="alert('Кредит одобрен! Ждите списания.')">БАБЛО ТУТ</button>
+    </section>
+
+    <section>
+        <h2>ТВОИ БУДНИ:</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://loremflickr.com/400/300/yacht,gold" alt="Яхта">
+                <div class="card-text">Твоя яхта</div>
+            </div>
+            <div class="card">
+                <img src="https://loremflickr.com/400/300/luxury,car" alt="Авто">
+                <div class="card-text">Твой автопарк</div>
+            </div>
+            <div class="card">
+                <img src="https://loremflickr.com/400/300/bali,resort" alt="Отель">
+                <div class="card-text">Твой офис</div>
+            </div>
+        </div>
+        <p style="margin-top: 40px;">Оставь почту (если сможешь):</p>
+        <div style="height: 80px; width: 100%; position: relative;">
+            <input type="text" id="runaway" value="ПОЧТА..." readonly>
+        </div>
+    </section>
+
+    <div id="chat-trigger" onclick="toggleChat()">👨🏻‍💻</div>
+    <div id="chat-window">
+        <div class="chat-header">Успешный Глеб</div>
+        <div id="chat-msgs">
+            <div class="m gleb">Привет! Есть свободные 500к?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-in" placeholder="Пиши сюда...">
+            <button onclick="sendMsg()">></button>
+        </div>
     </div>
-</section>
 
-<section class="gallery" id="buy">
-    <h2>ТВОЯ ЖИЗНЬ ПОСЛЕ КУРСА</h2>
-    <p class="subtitle">Это не фотостоки, это реальные будни наших учеников (наверное)</p>
-    <div class="gallery-grid">
-        <div class="gallery-item">
-            <img src="https://images.wsj.net/im-675660?width=1280&size=1.33333333" alt="Яхта">
-            <div class="gallery-caption">Собственная суперъяхта</div>
-        </div>
-        <div class="gallery-item">
-            <img src="https://cdn.drivek.it/configurator/v2/cars/it/8913/ROLLS-ROYCE/CULLINAN/41262_SUV-5-DOORS/rolls-royce-cullinan-2024-side-front.jpg" alt="Роллс-Ройс">
-            <div class="gallery-caption">Гараж мечты</div>
-        </div>
-        <div class="gallery-item">
-            <img src="https://thumbor.forbes.com/thumbor/fit-in/900x510/https://specials-images.forbesimg.com/imageserve/5f4922f3e3e0995f7c35f29f/0x0.jpg" alt="Вилла">
-            <div class="gallery-caption">Вилла на Бали</div>
-        </div>
-        <div class="gallery-item">
-            <img src="https://media.architecturaldigest.com/photos/59dc665c71987d6928e46955/master/w_1600%2Cc_limit/private-jet-02.jpg" alt="Джет">
-            <div class="gallery-caption">Частный самолет</div>
-        </div>
-        <div class="gallery-item">
-            <img src="https://specials-images.forbesimg.com/imageserve/63f13955e4e76a6b8c9d0d3d/0x0.jpg" alt="Биржа">
-            <div class="gallery-caption">Торговля с нейросетями</div>
-        </div>
-        <div class="gallery-item">
-            <img src="https://media.architecturaldigest.com/photos/5b6a12b64d30c72d8e4f5062/master/w_1600%2Cc_limit/working-from-anywhere.jpg" alt="Кофе">
-            <div class="gallery-caption">"Работа" из любой точки мира</div>
-        </div>
-    </div>
-</section>
+    <script>
+        // Таймер
+        let s = 300;
+        setInterval(() => {
+            let m = Math.floor(s/60); let sec = s%60;
+            document.getElementById('timer').innerText = `${m}:${sec<10?'0'+sec:sec}`;
+            if(s>0) s--; else s=300;
+        }, 1000);
 
-<section style="background: #0a0a0a;">
-    <h2>ОСТАВЬ ПОЧТУ ДЛЯ СПАМА</h2>
-    <p class="subtitle">И получи бесплатный чек-лист "Как заработать на кредитах"</p>
-    <div class="input-container" id="box">
-        <input type="email" id="runaway-input" placeholder="Твоя почта для развода..." readonly>
-    </div>
-</section>
+        // Убегающее поле
+        const inp = document.getElementById('runaway');
+        inp.onmouseover = () => {
+            inp.style.position = 'absolute';
+            inp.style.left = Math.random()*80 + '%';
+            inp.style.top = Math.random()*50 + 'px';
+        };
 
-<script>
-    // 1. Таймер (бесконечный цикл 5 минут)
-    let time = 299; // 4:59 в секундах
-    setInterval(() => {
-        let m = Math.floor(time / 60);
-        let s = time % 60;
-        document.getElementById('timer').innerText = `Осталось мест по скидке: ${m}:${s < 10 ? '0'+s : s}`;
-        if(time > 0) time--; else time = 299; // Сброс
-    }, 1000);
+        // Чат логика
+        const win = document.getElementById('chat-window');
+        const msgs = document.getElementById('chat-msgs');
+        const input = document.getElementById('user-in');
 
-    // 2. Убегающее поле (интерактив)
-    const inp = document.getElementById('runaway-input');
-    inp.onmouseover = () => {
-        const x = Math.random() * (window.innerWidth - 300);
-        const y = Math.random() * 80; // В пределах контейнера
-        inp.style.left = x + 'px';
-        inp.style.top = y + 'px';
-    };
+        function toggleChat() { win.style.display = (win.style.display == 'flex' ? 'none' : 'flex'); }
 
-    // 3. Падающие деньги на фоне
-    const mBox = document.getElementById('money-box');
-    for(let j=0; j<30; j++) {
-        let s = document.createElement('div');
-        s.className='symbol'; 
-        s.innerText = '$'; 
-        s.style.left = Math.random()*100+'vw';
-        s.style.top = Math.random()*-100+'vh'; // Начинаем выше экрана
-        s.style.fontSize = Math.random()*25+15+'px';
-        s.style.animationDuration = (Math.random()*4+4)+'s';
-        s.style.animationDelay = Math.random()*5+'s';
-        mBox.appendChild(s);
-    }
-</script>
+        const glebAnswers = [
+            "Это не ответ Хозяина Нейросетей. Попробуй еще раз, когда разбогатеешь.",
+            "Интересная мысль, но давай лучше обсудим твой первый взнос.",
+            "Я так и думал. Типичное мышление бедняка. Записывайся на курс!",
+            "ChatGPT сказал мне, что ты скоро станешь моим лучшим клиентом.",
+            "Не пиши ерунды, просто жми кнопку 'БАБЛО'!"
+        ];
 
+        function sendMsg() {
+            if(!input.value.trim()) return;
+            
+            // Сообщение пользователя
+            msgs.innerHTML += `<div class="m user">${input.value}</div>`;
+            const text = input.value;
+            input.value = '';
+            msgs.scrollTop = msgs.scrollHeight;
+
+            // Ответ Глеба через 1 сек
+            setTimeout(() => {
+                const ans = glebAnswers[Math.floor(Math.random()*glebAnswers.length)];
+                msgs.innerHTML += `<div class="m gleb">${ans}</div>`;
+                msgs.scrollTop = msgs.scrollHeight;
+            }, 1000);
+        }
+
+        input.addEventListener("keypress", (e) => { if(e.key === "Enter") sendMsg(); });
+    </script>
 </body>
 </html>
