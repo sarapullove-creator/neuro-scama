@@ -3,82 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ХОЗЯИН НЕЙРОСЕТЕЙ 2026</title>
+    <title>ХОЗЯИН НЕЙРОСЕТЕЙ — ТВОЙ УСПЕХ 2026</title>
     <style>
-        :root { --gold: #ffd700; --dark: #0a0a0a; }
-        body { margin: 0; background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; text-align: center; overflow-x: hidden; }
-        
-        /* Секции */
-        section { min-height: 100vh; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-bottom: 1px solid #222; }
-        h1 { font-size: 3.5rem; color: var(--gold); text-transform: uppercase; margin: 0; }
-        .btn { background: linear-gradient(45deg, #ff4e50, #f9d423); padding: 20px 40px; color: #000; font-weight: bold; border-radius: 50px; text-decoration: none; display: inline-block; margin: 20px; border: none; cursor: pointer; font-size: 1.2rem; }
+        :root {
+            --gold: #ffd700;
+            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fcf6ba 75%, #aa771c 100%);
+            --dark: #050505;
+        }
 
-        /* Галерея */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; max-width: 1000px; margin-top: 30px; }
-        .card { background: #111; border: 1px solid var(--gold); border-radius: 15px; overflow: hidden; position: relative; height: 200px; }
-        .card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
-        .card-text { position: absolute; bottom: 10px; left: 10px; font-weight: bold; background: rgba(0,0,0,0.7); padding: 5px; }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        body {
+            margin: 0; background: var(--dark); color: white;
+            font-family: 'Montserrat', sans-serif; overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
+        }
+
+        /* Анимация появления */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        section {
+            min-height: 100vh; padding: 100px 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-bottom: 1px solid rgba(255,215,0,0.1);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            background: var(--gold-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { filter: drop-shadow(0 0 5px rgba(255,215,0,0.3)); }
+            50% { filter: drop-shadow(0 0 20px rgba(255,215,0,0.6)); }
+            100% { filter: drop-shadow(0 0 5px rgba(255,215,0,0.3)); }
+        }
+
+        .btn {
+            background: var(--gold-gradient); padding: 25px 60px;
+            color: #000; font-weight: 900; border-radius: 50px;
+            text-decoration: none; font-size: 1.5rem; border: none;
+            cursor: pointer; box-shadow: 0 10px 40px rgba(255,215,0,0.4);
+            transition: 0.3s; margin: 30px;
+        }
+        .btn:hover { transform: scale(1.1) rotate(-1deg); box-shadow: 0 15px 50px rgba(255,215,0,0.6); }
+
+        /* Карточки потребностей */
+        .needs-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; width: 100%; max-width: 1200px; margin-top: 50px;
+        }
+        .need-card {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 20px; overflow: hidden; transition: 0.5s; backdrop-filter: blur(10px);
+        }
+        .need-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--gold);
+            box-shadow: 0 0 40px rgba(255,215,0,0.2);
+        }
+        .need-card img { width: 100%; height: 250px; object-fit: cover; transition: 0.5s; }
+        .need-card:hover img { filter: brightness(1.2); }
+        .need-info { padding: 20px; text-align: left; }
+        .need-info h3 { color: var(--gold); margin: 0; text-transform: uppercase; }
 
         /* ЧАТ */
-        #chat-trigger { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--gold); border-radius: 50%; cursor: pointer; z-index: 1001; display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 3px solid #fff; }
-        #chat-window { position: fixed; bottom: 90px; right: 20px; width: 300px; height: 450px; background: #1a1a1a; border: 2px solid var(--gold); border-radius: 15px; display: none; flex-direction: column; z-index: 1000; box-shadow: 0 0 30px #000; }
-        .chat-header { background: #222; padding: 10px; font-weight: bold; color: var(--gold); border-bottom: 1px solid #333; }
-        #chat-msgs { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
-        .m { padding: 8px 12px; border-radius: 10px; font-size: 0.9rem; max-width: 80%; text-align: left; }
-        .m.gleb { background: #333; align-self: flex-start; }
-        .m.user { background: var(--gold); color: #000; align-self: flex-end; }
-        .chat-input { display: flex; padding: 10px; border-top: 1px solid #333; }
-        .chat-input input { flex: 1; padding: 8px; border: none; border-radius: 5px; outline: none; }
-        .chat-input button { background: var(--gold); border: none; margin-left: 5px; padding: 8px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        #chat-trigger {
+            position: fixed; bottom: 25px; right: 25px; width: 70px; height: 70px;
+            background: var(--gold-gradient); border-radius: 50%; cursor: pointer;
+            z-index: 1001; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid white;
+        }
+        #chat-window {
+            position: fixed; bottom: 110px; right: 25px; width: 350px; height: 500px;
+            background: #111; border: 1px solid var(--gold); border-radius: 20px;
+            display: none; flex-direction: column; z-index: 1000; overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+        .chat-header { background: #222; padding: 15px; font-weight: bold; color: var(--gold); border-bottom: 1px solid #333; }
+        #chat-msgs { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0a0a0a; }
+        .m { padding: 10px 15px; border-radius: 15px; font-size: 0.9rem; max-width: 85%; line-height: 1.4; }
+        .m.op { background: #222; align-self: flex-start; border-bottom-left-radius: 0; border: 1px solid #333; }
+        .m.user { background: var(--gold); color: #000; align-self: flex-end; border-bottom-right-radius: 0; font-weight: 600; }
+        .chat-input { display: flex; padding: 15px; background: #1a1a1a; gap: 10px; }
+        .chat-input input { flex: 1; background: #000; border: 1px solid #444; color: white; padding: 10px; border-radius: 10px; outline: none; }
+        .chat-input button { background: var(--gold); border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; }
 
-        /* Убегающая форма */
-        #runaway { position: relative; padding: 10px; border: 1px solid var(--gold); background: #222; color: #fff; width: 200px; cursor: not-allowed; }
+        /* Убегающее поле */
+        #runaway-container { height: 150px; width: 100%; position: relative; margin-top: 50px; }
+        #runaway { position: absolute; left: 50%; transform: translateX(-50%); padding: 15px 30px; border: 2px solid var(--gold); background: #000; color: white; border-radius: 10px; cursor: not-allowed; transition: 0.1s; white-space: nowrap; }
+
+        .money-rain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.1; }
     </style>
 </head>
 <body>
 
-    <section>
+    <div class="money-rain" id="rain"></div>
+
+    <section class="reveal">
         <h1>ХОЗЯИН НЕЙРОСЕТЕЙ</h1>
-        <p style="color: #888;">Стань богатым, пока твой друг спит!</p>
-        <div id="timer" style="font-size: 2rem; color: #ff4e50; margin: 20px;">05:00</div>
-        <button class="btn" onclick="alert('Кредит одобрен! Ждите списания.')">БАБЛО ТУТ</button>
+        <p style="font-size: 1.5rem; letter-spacing: 2px; color: #888;">ЭЛИТНЫЙ КЛУБ ИЗБРАННЫХ</p>
+        <div id="timer" style="font-size: 3rem; font-weight: 900; color: #ff4e50; margin: 20px; font-family: monospace;">05:00</div>
+        <button class="btn" onclick="alert('Транзакция в обработке... Ваш баланс обнулен успешно!')">ПОЛУЧИТЬ ДОСТУП</button>
+        <p style="margin-top: 50px; color: var(--gold); animation: bounce 2s infinite;">SCROLL DOWN FOR LUXURY ↓</p>
     </section>
 
-    <section>
-        <h2>ТВОИ БУДНИ:</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="https://loremflickr.com/400/300/yacht,gold" alt="Яхта">
-                <div class="card-text">Твоя яхта</div>
+    <section class="reveal">
+        <h2>ТВОИ ЗАКРЫТЫЕ ПОТРЕБНОСТИ</h2>
+        <p style="color: #666;">Забудь о бытовых проблемах. Нейросети сделают всё за тебя.</p>
+        
+        <div class="needs-grid">
+            <div class="need-card">
+                <img src="https://loremflickr.com/600/400/lamborghini,black" alt="Тачки">
+                <div class="need-info">
+                    <h3>Элитный Автопарк</h3>
+                    <p>Больше никаких автобусов. Только карбон, кожа и 800 лошадей под капотом.</p>
+                </div>
             </div>
-            <div class="card">
-                <img src="https://loremflickr.com/400/300/luxury,car" alt="Авто">
-                <div class="card-text">Твой автопарк</div>
+            <div class="need-card">
+                <img src="https://loremflickr.com/600/400/luxury,party,girls" alt="Девушки">
+                <div class="need-info">
+                    <h3>Общество Топ-Уровня</h3>
+                    <p>Вечеринки в Монако и Дубае. Тебя будут окружать лучшие люди планеты.</p>
+                </div>
             </div>
-            <div class="card">
-                <img src="https://loremflickr.com/400/300/bali,resort" alt="Отель">
-                <div class="card-text">Твой офис</div>
+            <div class="need-card">
+                <img src="https://loremflickr.com/600/400/money,cash" alt="Деньги">
+                <div class="need-info">
+                    <h3>Безлимитный Кеш</h3>
+                    <p>Твоя единственная проблема — как успеть потратить всё, что падает на счет.</p>
+                </div>
             </div>
-        </div>
-        <p style="margin-top: 40px;">Оставь почту (если сможешь):</p>
-        <div style="height: 80px; width: 100%; position: relative;">
-            <input type="text" id="runaway" value="ПОЧТА..." readonly>
         </div>
     </section>
 
-    <div id="chat-trigger" onclick="toggleChat()">👨🏻‍💻</div>
+    <section class="reveal">
+        <h2>ГОТОВ СТАТЬ ХОЗЯИНОМ?</h2>
+        <p>Введи почту, чтобы получить инвайт (если поймаешь поле)</p>
+        <div id="runaway-container">
+            <input type="text" id="runaway" value="ХОЧУ В КЛУБ..." readonly>
+        </div>
+    </section>
+
+    <div id="chat-trigger" onclick="toggleChat()">💬</div>
     <div id="chat-window">
-        <div class="chat-header">Успешный Глеб</div>
+        <div class="chat-header">🌐 ОПЕРАТОР ПОДДЕРЖКИ</div>
         <div id="chat-msgs">
-            <div class="m gleb">Привет! Есть свободные 500к?</div>
+            <div class="m op">Здравствуйте. Вижу у вас есть потенциал (и деньги на счету). Готовы начать восхождение?</div>
         </div>
         <div class="chat-input">
-            <input type="text" id="user-in" placeholder="Пиши сюда...">
+            <input type="text" id="user-in" placeholder="Ваше сообщение...">
             <button onclick="sendMsg()">></button>
         </div>
     </div>
 
     <script>
+        // Анимация при скролле
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            reveals.forEach(r => {
+                var windowHeight = window.innerHeight;
+                var elementTop = r.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) { r.classList.add("active"); }
+            });
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Запуск один раз при загрузке
+
         // Таймер
         let s = 300;
         setInterval(() => {
@@ -90,44 +183,62 @@
         // Убегающее поле
         const inp = document.getElementById('runaway');
         inp.onmouseover = () => {
-            inp.style.position = 'absolute';
-            inp.style.left = Math.random()*80 + '%';
-            inp.style.top = Math.random()*50 + 'px';
+            inp.style.left = Math.random() * 80 + '%';
+            inp.style.top = Math.random() * 100 + 'px';
         };
 
-        // Чат логика
+        // ЧАТ
         const win = document.getElementById('chat-window');
         const msgs = document.getElementById('chat-msgs');
         const input = document.getElementById('user-in');
 
         function toggleChat() { win.style.display = (win.style.display == 'flex' ? 'none' : 'flex'); }
 
-        const glebAnswers = [
-            "Это не ответ Хозяина Нейросетей. Попробуй еще раз, когда разбогатеешь.",
-            "Интересная мысль, но давай лучше обсудим твой первый взнос.",
-            "Я так и думал. Типичное мышление бедняка. Записывайся на курс!",
-            "ChatGPT сказал мне, что ты скоро станешь моим лучшим клиентом.",
-            "Не пиши ерунды, просто жми кнопку 'БАБЛО'!"
+        const answers = [
+            "Оператор слушает. Ваши средства в безопасности (у нас).",
+            "Хороший вопрос. Но Хозяева Нейросетей не спрашивают, они берут.",
+            "Для доступа к этой информации нужно купить пакет 'Ультра-Вип'.",
+            "Вы уже чувствуете запах новой кожи в салоне вашего Роллс-Ройса?",
+            "Система анализирует ваш профиль... Похоже, вы рождены для богатства.",
+            "Не пишите лишнего. Просто следуйте инструкциям на главном экране.",
+            "Оператор напоминает: время — деньги. Ваши деньги — наше время.",
+            "У вас остались вопросы? Значит вы еще не посмотрели наш вебинар за 99к.",
+            "Мы уже забронировали вам номер в отеле Burj Al Arab. Ждем оплаты.",
+            "Нейросети подтверждают: ваш успех неизбежен. Если карта не заблокирована."
         ];
 
         function sendMsg() {
             if(!input.value.trim()) return;
-            
-            // Сообщение пользователя
             msgs.innerHTML += `<div class="m user">${input.value}</div>`;
-            const text = input.value;
             input.value = '';
             msgs.scrollTop = msgs.scrollHeight;
 
-            // Ответ Глеба через 1 сек
             setTimeout(() => {
-                const ans = glebAnswers[Math.floor(Math.random()*glebAnswers.length)];
-                msgs.innerHTML += `<div class="m gleb">${ans}</div>`;
+                const ans = answers[Math.floor(Math.random()*answers.length)];
+                msgs.innerHTML += `<div class="m op">${ans}</div>`;
                 msgs.scrollTop = msgs.scrollHeight;
             }, 1000);
         }
-
         input.addEventListener("keypress", (e) => { if(e.key === "Enter") sendMsg(); });
+
+        // Дождь из денег
+        const rain = document.getElementById('rain');
+        for(let i=0; i<30; i++) {
+            let d = document.createElement('div');
+            d.style.position = 'absolute';
+            d.style.left = Math.random()*100+'vw';
+            d.style.top = '-50px';
+            d.style.color = '#ffd700';
+            d.innerText = '$';
+            d.style.fontSize = (Math.random()*20 + 10)+'px';
+            d.style.animation = `fall ${Math.random()*5+3}s linear infinite`;
+            d.style.animationDelay = Math.random()*5+'s';
+            rain.appendChild(d);
+        }
     </script>
+    <style>
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    </style>
 </body>
 </html>
