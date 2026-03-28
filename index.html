@@ -3,78 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хозяин Нейросетей — ОФИЦИАЛЬНО</title>
+    <title>Хозяин Нейросетей — Твой Путь к Миллиардам (Серьезно)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
     <style>
-        body {
-            margin: 0; background: #000; color: #fff;
-            font-family: Arial, sans-serif; text-align: center;
+        :root {
+            --gold: #ffd700;
+            --gold-light: #fcf6ba;
+            --gold-dark: #b38728;
+            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fcf6ba 75%, #aa771c 100%);
+            --dark-bg: #050505;
+            --glass: rgba(255, 215, 0, 0.03);
+            --glass-border: rgba(255, 215, 0, 0.15);
         }
-        .section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; border-bottom: 1px dashed #333; }
-        h1 { color: #ffd700; font-size: 3rem; text-shadow: 0 0 20px #bf953f; margin-bottom: 5px; }
-        .btn { background: linear-gradient(to right, #ff4e50, #f9d423); padding: 20px 40px; color: #000; font-weight: bold; border-radius: 50px; text-decoration: none; font-size: 1.5rem; display: inline-block; margin: 20px; border: none; cursor: pointer; }
-        .card { background: #111; padding: 20px; margin: 10px; border-radius: 15px; border: 1px solid #ffd700; max-width: 400px; }
-        #runaway { position: relative; padding: 10px; border: 1px solid #ffd700; background: #222; color: #fff; display: inline-block; transition: 0.1s; }
+
+        * { box-sizing: border-box; scroll-behavior: smooth; margin: 0; padding: 0; }
         
-        /* ЧАТ */
-        #chat { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #ffd700; border-radius: 50%; cursor: pointer; z-index: 999; border: 3px solid #000; }
-        #win { position: fixed; bottom: 90px; right: 20px; width: 280px; height: 350px; background: #1a1a1a; border: 2px solid #ffd700; border-radius: 15px; display: none; flex-direction: column; padding: 10px; z-index: 1000; }
-    </style>
-</head>
-<body>
+        body {
+            background-color: var(--dark-bg);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-    <div class="section">
-        <h1>ХОЗЯИН НЕЙРОСЕТЕЙ</h1>
-        <p style="font-size: 1.5rem; color: #aaa;">Узнай, как потратить всё и остаться ни с чем!</p>
-        <div id="timer" style="color: red; font-weight: bold; font-size: 2rem;">До конца скидки: 05:00</div>
-        <button class="btn" onclick="alert('Ошибка: Недостаточно совести для проведения операции. Но деньги мы забрали!')">ХОЧУ ПОТЕРЯТЬ ДЕНЬГИ</button>
-        <p>↓ Скроль вниз за успешной жизнью ↓</p>
-    </div>
+        /* Общие стили для секций */
+        section { min-height: 100vh; padding: 100px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+        h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 50px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
+        p.subtitle { font-size: 1.2rem; color: #aaa; max-width: 600px; margin-bottom: 40px; }
 
-    <div class="section">
-        <h2>ТВОЯ ЖИЗНЬ ПОСЛЕ ОБУЧЕНИЯ</h2>
-        <div class="card">🚢 <b>Яхта Глеба:</b> Ты будешь смотреть на неё издалека.</div>
-        <div class="card">🏝️ <b>Остров Бали:</b> Мы пришлем тебе открытку оттуда.</div>
-        <div class="card">💸 <b>Инвестиции:</b> В наш новый крипто-чай.</div>
-        
-        <p>Оставь почту для спама:</p>
-        <div style="height: 100px; position: relative; width: 100%;">
-            <input type="text" id="runaway" placeholder="Твоя почта..." readonly>
-        </div>
-    </div>
+        /* Элементы Glassmorphism */
+        .glass-panel { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; backdrop-filter: blur(10px); padding: 40px; box-shadow: 0 10px 50px rgba(0,0,0,0.5); width: 100%; max-width: 1000px; }
 
-    <div id="chat" onclick="document.getElementById('win').style.display = (document.getElementById('win').style.display == 'flex' ? 'none' : 'flex')">
-        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" style="width:100%; border-radius:50%">
-    </div>
-    <div id="win">
-        <b style="color: #ffd700;">Успешный Глеб:</b>
-        <hr>
-        <div id="m" style="text-align: left; font-size: 0.9rem;"></div>
-    </div>
-
-    <script>
-        // Таймер
-        let t = 300;
-        setInterval(() => {
-            let m = Math.floor(t/60); let s = t%60;
-            document.getElementById('timer').innerText = `До конца скидки: ${m}:${s<10?'0'+s:s}`;
-            if(t>0) t--; else t=300;
-        }, 1000);
-
-        // Убегающее поле
-        const inp = document.getElementById('runaway');
-        inp.onmouseover = () => {
-            inp.style.left = Math.random()*50 + '%';
-            inp.style.top = Math.random()*50 + 'px';
-        };
-
-        // Чат
-        const lines = ["Привет!", "Хочешь золотые горы?", "Кидай деньги, не стесняйся!", "Я уже выбрал себе новую Ламбу на твои деньги.", "УДАЧИ!"];
-        let idx = 0;
-        setInterval(() => {
-            if(idx < lines.length) {
-                document.getElementById('m').innerHTML += `<p>• ${lines[idx++]}</p>`;
-            }
-        }, 4000);
-    </script>
-</body>
-</html>
+        /* Кнопки */
+        .btn {
+            display: inline-block; padding: 20px 50px; font-size: 1.3rem; font-weight: 900; color: #000;
+            text-transform: uppercase; border-radius: 100px; cursor: pointer; text-decoration: none;
+            background: linear-gradient
