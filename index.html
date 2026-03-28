@@ -3,242 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ХОЗЯИН НЕЙРОСЕТЕЙ — ТВОЙ УСПЕХ 2026</title>
+    <title>ХОЗЯИН НЕЙРОСЕТЕЙ — ULTIMATE EDITION 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #ffd700;
             --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fcf6ba 75%, #aa771c 100%);
             --dark: #050505;
+            --glass: rgba(255, 215, 0, 0.03);
+            --glass-border: rgba(255, 215, 0, 0.15);
         }
 
-        * { box-sizing: border-box; scroll-behavior: smooth; }
+        * { box-sizing: border-box; scroll-behavior: smooth; margin: 0; padding: 0; }
+        
         body {
-            margin: 0; background: var(--dark); color: white;
-            font-family: 'Montserrat', sans-serif; overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
+            background-color: var(--dark);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
         }
 
-        /* Анимация появления */
+        /* Анимация фона */
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(125deg, #000, #1a1a1a, #000);
+            background-size: 400% 400%; animation: gradientBG 15s ease infinite; z-index: -1;
+        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* Общие стили */
+        section { min-height: 100vh; padding: 100px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; text-align: center; }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        section {
-            min-height: 100vh; padding: 100px 20px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border-bottom: 1px solid rgba(255,215,0,0.1);
-        }
-
-        h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            background: var(--gold-gradient);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase; animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { filter: drop-shadow(0 0 5px rgba(255,215,0,0.3)); }
-            50% { filter: drop-shadow(0 0 20px rgba(255,215,0,0.6)); }
-            100% { filter: drop-shadow(0 0 5px rgba(255,215,0,0.3)); }
-        }
-
+        h1, h2 { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; font-weight: 900; letter-spacing: 2px; filter: drop-shadow(0 0 15px rgba(255,215,0,0.3)); }
+        h1 { font-size: clamp(2.5rem, 10vw, 5rem); margin-bottom: 10px; }
+        h2 { font-size: clamp(2rem, 6vw, 3.5rem); margin-bottom: 50px; }
+        
         .btn {
-            background: var(--gold-gradient); padding: 25px 60px;
-            color: #000; font-weight: 900; border-radius: 50px;
-            text-decoration: none; font-size: 1.5rem; border: none;
-            cursor: pointer; box-shadow: 0 10px 40px rgba(255,215,0,0.4);
-            transition: 0.3s; margin: 30px;
+            display: inline-block; padding: 25px 60px; font-size: 1.5rem; font-weight: 900; color: #000;
+            text-transform: uppercase; border-radius: 100px; cursor: pointer; text-decoration: none;
+            background: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%);
+            box-shadow: 0 15px 40px rgba(255, 78, 80, 0.4); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none; margin: 30px;
         }
-        .btn:hover { transform: scale(1.1) rotate(-1deg); box-shadow: 0 15px 50px rgba(255,215,0,0.6); }
+        .btn:hover { transform: scale(1.1) rotate(-1deg); box-shadow: 0 20px 50px rgba(255, 215, 0, 0.6); }
 
-        /* Карточки потребностей */
-        .needs-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px; width: 100%; max-width: 1200px; margin-top: 50px;
-        }
-        .need-card {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,215,0,0.2);
-            border-radius: 20px; overflow: hidden; transition: 0.5s; backdrop-filter: blur(10px);
-        }
-        .need-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: var(--gold);
-            box-shadow: 0 0 40px rgba(255,215,0,0.2);
-        }
-        .need-card img { width: 100%; height: 250px; object-fit: cover; transition: 0.5s; }
-        .need-card:hover img { filter: brightness(1.2); }
-        .need-info { padding: 20px; text-align: left; }
-        .need-info h3 { color: var(--gold); margin: 0; text-transform: uppercase; }
+        /* --- Тарифы --- */
+        .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; width: 100%; max-width: 1200px; margin-top: 50px; }
+        .plan-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 40px; backdrop-filter: blur(10px); transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
+        .plan-card:hover { border-color: var(--gold); transform: translateY(-10px); box-shadow: 0 10px 40px rgba(255,215,0,0.1); }
+        .plan-card.featured { border: 3px solid var(--gold); position: relative; transform: scale(1.05); }
+        .plan-card.featured::after { content: 'РЕКОМЕНДУЕМ'; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; padding: 5px 15px; font-weight: bold; font-size: 0.8rem; border-radius: 20px; }
+        .plan-price { font-size: 3rem; font-weight: 900; color: var(--gold); margin: 20px 0; }
+        .plan-list { text-align: left; list-style: none; color: #ccc; margin-bottom: 30px; flex-grow: 1; }
+        .plan-list li { margin-bottom: 10px; padding-left: 25px; position: relative; }
+        .plan-list li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); }
 
-        /* ЧАТ */
-        #chat-trigger {
-            position: fixed; bottom: 25px; right: 25px; width: 70px; height: 70px;
-            background: var(--gold-gradient); border-radius: 50%; cursor: pointer;
-            z-index: 1001; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid white;
-        }
-        #chat-window {
-            position: fixed; bottom: 110px; right: 25px; width: 350px; height: 500px;
-            background: #111; border: 1px solid var(--gold); border-radius: 20px;
-            display: none; flex-direction: column; z-index: 1000; overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-        }
-        .chat-header { background: #222; padding: 15px; font-weight: bold; color: var(--gold); border-bottom: 1px solid #333; }
+        /* --- Чат Оператора --- */
+        #chat-window { position: fixed; bottom: 100px; right: 25px; width: 320px; height: 450px; background: #111; border: 1px solid var(--gold); border-radius: 20px; display: none; flex-direction: column; z-index: 1000; overflow: hidden; box-shadow: 0 15px 50px rgba(0,0,0,0.7); }
+        #chat-window.open { display: flex; animation: slideIn 0.3s forwards; }
+        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .chat-header { background: #222; padding: 15px; font-weight: bold; border-bottom: 1px solid #333; display: flex; justify-content: space-between; color: var(--gold); }
         #chat-msgs { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0a0a0a; }
-        .m { padding: 10px 15px; border-radius: 15px; font-size: 0.9rem; max-width: 85%; line-height: 1.4; }
-        .m.op { background: #222; align-self: flex-start; border-bottom-left-radius: 0; border: 1px solid #333; }
-        .m.user { background: var(--gold); color: #000; align-self: flex-end; border-bottom-right-radius: 0; font-weight: 600; }
-        .chat-input { display: flex; padding: 15px; background: #1a1a1a; gap: 10px; }
-        .chat-input input { flex: 1; background: #000; border: 1px solid #444; color: white; padding: 10px; border-radius: 10px; outline: none; }
-        .chat-input button { background: var(--gold); border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .m { padding: 10px 15px; border-radius: 12px; font-size: 0.9rem; max-width: 85%; }
+        .m.op { background: #222; align-self: flex-start; border-bottom-left-radius: 0; }
+        .m.user { background: var(--gold); color: #000; align-self: flex-end; border-bottom-right-radius: 0; font-weight: bold; }
+        .chat-input { display: flex; padding: 10px; background: #1a1a1a; gap: 5px; }
+        .chat-input input { flex: 1; background: #000; border: 1px solid #333; color: white; padding: 10px; border-radius: 5px; outline: none; }
+        
+        /* Кнопка чата */
+        #chat-trigger { position: fixed; bottom: 20px; right: 20px; width: 65px; height: 65px; background: var(--gold-gradient); border-radius: 50%; cursor: pointer; z-index: 1001; display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 3px solid #000; box-shadow: 0 10px 30px rgba(255,215,0,0.3); }
 
-        /* Убегающее поле */
-        #runaway-container { height: 150px; width: 100%; position: relative; margin-top: 50px; }
-        #runaway { position: absolute; left: 50%; transform: translateX(-50%); padding: 15px 30px; border: 2px solid var(--gold); background: #000; color: white; border-radius: 10px; cursor: not-allowed; transition: 0.1s; white-space: nowrap; }
+        /* --- Лента Успеха (Pop-ups) --- */
+        #success-feed { position: fixed; bottom: 20px; left: 20px; z-index: 999; width: 280px; pointer-events: none; }
+        .success-note { background: rgba(0,0,0,0.8); border: 1px solid var(--gold-dark); color: #fff; padding: 15px; border-radius: 10px; margin-top: 10px; opacity: 0; transform: translateX(-20px); animation: noteSlide 4s forwards; font-size: 0.85rem; backdrop-filter: blur(5px); }
+        @keyframes noteSlide { 10% { opacity: 1; transform: translateX(0); } 90% { opacity: 1; transform: translateX(0); } 100% { opacity: 0; transform: translateY(10px); } }
 
-        .money-rain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.1; }
+        /* --- Декор --- */
+        .symbol { position: absolute; color: var(--gold); opacity: 0.1; animation: fall linear infinite; pointer-events: none; z-index: 0; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+        
+        #runaway { position: relative; padding: 15px 30px; border: 2px solid var(--gold); background: #000; color: white; border-radius: 10px; cursor: not-allowed; transition: 0.1s; white-space: nowrap; margin-top: 40px;}
+
+        /* Партнеры */
+        footer { background: #000; padding: 50px 20px; text-align: center; border-top: 1px solid #111; color: #444; }
+        .partners-logo { font-size: 1.5rem; font-weight: bold; margin: 10px; display: inline-block; filter: grayscale(1); opacity: 0.3; }
     </style>
 </head>
 <body>
 
-    <div class="money-rain" id="rain"></div>
+<div id="money-box"></div>
+<div id="success-feed"></div>
 
-    <section class="reveal">
-        <h1>ХОЗЯИН НЕЙРОСЕТЕЙ</h1>
-        <p style="font-size: 1.5rem; letter-spacing: 2px; color: #888;">ЭЛИТНЫЙ КЛУБ ИЗБРАННЫХ</p>
-        <div id="timer" style="font-size: 3rem; font-weight: 900; color: #ff4e50; margin: 20px; font-family: monospace;">05:00</div>
-        <button class="btn" onclick="alert('Транзакция в обработке... Ваш баланс обнулен успешно!')">ПОЛУЧИТЬ ДОСТУП</button>
-        <p style="margin-top: 50px; color: var(--gold); animation: bounce 2s infinite;">SCROLL DOWN FOR LUXURY ↓</p>
-    </section>
+<div id="chat-trigger" onclick="toggleChat()">👨🏻‍💼</div>
+<div id="chat-window">
+    <div class="chat-header">🌐 ОПЕРАТОР (В СЕТИ) <span onclick="toggleChat()" style="cursor:pointer">×</span></div>
+    <div id="chat-msgs">
+        <div class="m op">Приветствую! Готовы обсудить ваш тариф и начать восхождение? Места быстро уходят.</div>
+    </div>
+    <div class="chat-input">
+        <input type="text" id="user-in" placeholder="Ваш ответ...">
+        <button onclick="sendMsg()" style="background:var(--gold); border:none; padding:10px; border-radius:5px; cursor:pointer;">></button>
+    </div>
+</div>
 
-    <section class="reveal">
-        <h2>ТВОИ ЗАКРЫТЫЕ ПОТРЕБНОСТИ</h2>
-        <p style="color: #666;">Забудь о бытовых проблемах. Нейросети сделают всё за тебя.</p>
-        
-        <div class="needs-grid">
-            <div class="need-card">
-                <img src="https://loremflickr.com/600/400/lamborghini,black" alt="Тачки">
-                <div class="need-info">
-                    <h3>Элитный Автопарк</h3>
-                    <p>Больше никаких автобусов. Только карбон, кожа и 800 лошадей под капотом.</p>
-                </div>
-            </div>
-            <div class="need-card">
-                <img src="https://loremflickr.com/600/400/luxury,party,girls" alt="Девушки">
-                <div class="need-info">
-                    <h3>Общество Топ-Уровня</h3>
-                    <p>Вечеринки в Монако и Дубае. Тебя будут окружать лучшие люди планеты.</p>
-                </div>
-            </div>
-            <div class="need-card">
-                <img src="https://loremflickr.com/600/400/money,cash" alt="Деньги">
-                <div class="need-info">
-                    <h3>Безлимитный Кеш</h3>
-                    <p>Твоя единственная проблема — как успеть потратить всё, что падает на счет.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="reveal">
-        <h2>ГОТОВ СТАТЬ ХОЗЯИНОМ?</h2>
-        <p>Введи почту, чтобы получить инвайт (если поймаешь поле)</p>
-        <div id="runaway-container">
-            <input type="text" id="runaway" value="ХОЧУ В КЛУБ..." readonly>
-        </div>
-    </section>
-
-    <div id="chat-trigger" onclick="toggleChat()">💬</div>
-    <div id="chat-window">
-        <div class="chat-header">🌐 ОПЕРАТОР ПОДДЕРЖКИ</div>
-        <div id="chat-msgs">
-            <div class="m op">Здравствуйте. Вижу у вас есть потенциал (и деньги на счету). Готовы начать восхождение?</div>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="user-in" placeholder="Ваше сообщение...">
-            <button onclick="sendMsg()">></button>
-        </div>
+<section class="heroReveal">
+    <h1>ХОЗЯИН НЕЙРОСЕТЕЙ</h1>
+    <p style="font-size: 1.4rem; color: #aaa; font-family: 'Playfair Display', serif; font-style: italic;">Последний бастион финансовой свободы 2026</p>
+    
+    <div class="glass-panel" style="margin: 30px; padding: 20px; border: 1px solid var(--glass-border); background: var(--glass); border-radius: 15px;">
+        <div id="timer" style="font-size: 3.5rem; font-weight: 900; color: #ff4e50; font-family: monospace;">05:00</div>
+        <div id="places" style="font-size: 1.2rem; color: var(--gold);">Осталось мест: <span id="places-count" style="font-weight:bold;">12</span></div>
     </div>
 
-    <script>
-        // Анимация при скролле
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            reveals.forEach(r => {
-                var windowHeight = window.innerHeight;
-                var elementTop = r.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) { r.classList.add("active"); }
-            });
-        }
-        window.addEventListener("scroll", reveal);
-        reveal(); // Запуск один раз при загрузке
+    <a href="#plans" class="btn" onclick="alert('Вы забронировали пакет ULTRA LEGEND. Глеб выезжает за вами.')">ВСТУПИТЬ В КЛУБ</a>
+    <p style="margin-top: 40px; color: #666; animation: bounce 2s infinite;">SCROLL FOR WEALTH ↓</p>
+</section>
 
-        // Таймер
-        let s = 300;
-        setInterval(() => {
-            let m = Math.floor(s/60); let sec = s%60;
-            document.getElementById('timer').innerText = `${m}:${sec<10?'0'+sec:sec}`;
-            if(s>0) s--; else s=300;
-        }, 1000);
+<section class="reveal" id="plans">
+    <h2>ВЫБЕРИ СВОЙ УРОВЕНЬ</h2>
+    <p style="color: #888; margin-bottom: 50px;">Инвестируй в свое будущее, пока оно не инвестировало в тебя.</p>
+    
+    <div class="plans-grid">
+        <div class="plan-card">
+            <div>
+                <h3>Тариф «НОВИЧОК»</h3>
+                <div class="plan-price">99 900 ₽</div>
+            </div>
+            <ul class="plan-list">
+                <li>Доступ к базовым нейросетям</li>
+                <li>Чат с другими нищебродами</li>
+                <li>ПДФ-чек-лист "Как сэкономить на еде"</li>
+            </ul>
+            <a href="#" class="btn" style="font-size: 1rem; padding: 15px 30px;" onclick="alert('Ошибка: Банк отклонил операцию. Попробуйте карту с балансом.')">ВЫБРАТЬ</a>
+        </div>
+        <div class="plan-card featured">
+            <div>
+                <h3>Тариф «ХОЗЯИН»</h3>
+                <div class="plan-price">499 900 ₽</div>
+            </div>
+            <ul class="plan-list">
+                <li>VIP-доступ к закрытым моделям</li>
+                <li>Личный чат с Оператором</li>
+                <li>Схема "Развод друга на 1 млн ₽"</li>
+                <li>Приглашение на онлайн-пати</li>
+            </ul>
+            <a href="#" class="btn" style="font-size: 1rem; padding: 15px 30px;" onclick="alert('Транзакция в обработке. Ожидайте успешного успеха.')">ВЫБРАТЬ</a>
+        </div>
+        <div class="plan-card">
+            <div>
+                <h3>Тариф «ULTRA LEGEND»</h3>
+                <div class="plan-price">5 000 000 ₽</div>
+            </div>
+            <ul class="plan-list">
+                <li>Мы делаем ВСЁ за вас</li>
+                <li>Яхта Оператора на выходные</li>
+                <li>Вас окружает безлимитный кеш</li>
+                <li>Фотосессия в стиле 'Вулк-с-Уолл-Стрит'</li>
+            </ul>
+            <a href="#" class="btn" style="font-size: 1rem; padding: 15px 30px;" onclick="alert('Поздравляем! Мы уже выслали к вам инкассаторов.')">ВЫБРАТЬ</a>
+        </div>
+    </div>
+</section>
 
-        // Убегающее поле
-        const inp = document.getElementById('runaway');
-        inp.onmouseover = () => {
-            inp.style.left = Math.random() * 80 + '%';
-            inp.style.top = Math.random() * 100 + 'px';
-        };
+<section class="reveal">
+    <h2>ХОЧЕШЬ БЕСПЛАТНЫЙ ТЕСТ?</h2>
+    <p>Оставь почту, и мы пришлем тебе схему заработка 1000₽ за 10 лет.</p>
+    <div style="height: 100px; width: 300px; position: relative; margin-top: 30px;">
+        <input type="text" id="runaway" value="ВАША ПОЧТА..." readonly>
+    </div>
+</section>
 
-        // ЧАТ
-        const win = document.getElementById('chat-window');
-        const msgs = document.getElementById('chat-msgs');
-        const input = document.getElementById('user-in');
+<footer>
+    <div class="reveal">
+        <p style="color: #666; margin-bottom: 20px;">ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ:</p>
+        <div class="partners-logo">NASA</div>
+        <div class="partners-logo">TESLA</div>
+        <div class="partners-logo">MICROSOFT</div>
+        <div class="partners-logo">ПЯТЁРОЧКА</div>
+        <div class="partners-logo">PENTAGON</div>
+    </div>
+    <p style="margin-top: 40px; color: #222; font-size: 0.7rem;">&copy; 2077 OOO "Нейро-Скам Холдингс". Сатира.</p>
+</footer>
 
-        function toggleChat() { win.style.display = (win.style.display == 'flex' ? 'none' : 'flex'); }
+<script>
+    // Анимация скролла
+    function reveal() {
+        document.querySelectorAll(".reveal").forEach(r => {
+            if (r.getBoundingClientRect().top < window.innerHeight - 100) { r.classList.add("active"); }
+        });
+    }
+    window.addEventListener("scroll", reveal); reveal();
 
-        const answers = [
-            "Оператор слушает. Ваши средства в безопасности (у нас).",
-            "Хороший вопрос. Но Хозяева Нейросетей не спрашивают, они берут.",
-            "Для доступа к этой информации нужно купить пакет 'Ультра-Вип'.",
-            "Вы уже чувствуете запах новой кожи в салоне вашего Роллс-Ройса?",
-            "Система анализирует ваш профиль... Похоже, вы рождены для богатства.",
-            "Не пишите лишнего. Просто следуйте инструкциям на главном экране.",
-            "Оператор напоминает: время — деньги. Ваши деньги — наше время.",
-            "У вас остались вопросы? Значит вы еще не посмотрели наш вебинар за 99к.",
-            "Мы уже забронировали вам номер в отеле Burj Al Arab. Ждем оплаты.",
-            "Нейросети подтверждают: ваш успех неизбежен. Если карта не заблокирована."
-        ];
+    // Таймер
+    let time = 300;
+    setInterval(() => {
+        let m = Math.floor(time/60); let s = time%60;
+        document.getElementById('timer').innerText = `${m}:${s<10?'0'+s:s}`;
+        if(time>0) time--; else time=300;
+    }, 1000);
 
-        function sendMsg() {
-            if(!input.value.trim()) return;
-            msgs.innerHTML += `<div class="m user">${input.value}</div>`;
-            input.value = '';
+    // Счетчик мест
+    let places = 12;
+    setInterval(() => { if(places > 1) places--; document.getElementById('places-count').innerText = places; }, 12000);
+
+    // Убегающее поле
+    const inp = document.getElementById('runaway');
+    inp.onmouseover = () => { inp.style.left = Math.random()*150 + 'px'; inp.style.top = Math.random()*50 + 'px'; };
+
+    // Чат
+    const win = document.getElementById('chat-window');
+    const msgs = document.getElementById('chat-msgs');
+    const inUser = document.getElementById('user-in');
+    function toggleChat() { win.classList.toggle('open'); }
+    const answers = [
+        "Оператор слушает. Ваши средства в безопасности (у нас).",
+        "Интересная мысль, но Хозяева Нейросетей не спрашивают, они берут.",
+        "Для доступа к этой информации нужно купить пакет 'ULTRA LEGEND'.",
+        "Мы уже забронировали вам номер в отеле Burj Al Arab. Ждем оплаты.",
+        "Система анализирует ваш профиль... Похоже, вы рождены для богатства.",
+        "Не пишите лишнего. Просто следуйте инструкциям.",
+        "Ваш успех неизбежен. Если карта не заблокирована.",
+        "Жми кнопку оплаты, будь мужчиной (или женщиной)!",
+        "Хочешь Ламбу? Просто переведи деньги.",
+        "Оператор: Время пошло. Места уходят."
+    ];
+    function sendMsg() {
+        if(!inUser.value.trim()) return;
+        msgs.innerHTML += `<div class="m user">${inUser.value}</div>`;
+        inUser.value = ''; msgs.scrollTop = msgs.scrollHeight;
+        setTimeout(() => {
+            msgs.innerHTML += `<div class="m op">${answers[Math.floor(Math.random()*answers.length)]}</div>`;
             msgs.scrollTop = msgs.scrollHeight;
+        }, 1000);
+    }
+    inUser.addEventListener("keypress", e => { if(e.key === "Enter") sendMsg(); });
 
-            setTimeout(() => {
-                const ans = answers[Math.floor(Math.random()*answers.length)];
-                msgs.innerHTML += `<div class="m op">${ans}</div>`;
-                msgs.scrollTop = msgs.scrollHeight;
-            }, 1000);
-        }
-        input.addEventListener("keypress", (e) => { if(e.key === "Enter") sendMsg(); });
+    // Лента Успеха (фейковые поп-апы)
+    const names = ["Иван К.", "Мария П.", "Санек В.", "Ольга Л.", "Дмитрий С.", "Наталья Р."];
+    const actions = ["вывел 150 000 ₽", "купила Lamborghini", "закрыл ипотеку", "улетела на Мальдивы", "заработал 1 млн ₽"];
+    function addNote() {
+        const n = names[Math.floor(Math.random()*names.length)];
+        const a = actions[Math.floor(Math.random()*actions.length)];
+        const feed = document.getElementById('success-feed');
+        const div = document.createElement('div');
+        div.className = 'success-note';
+        div.innerHTML = `<b style="color:var(--gold)">${n}</b> ${a} <span style="color:var(--gold)">только что!</span>`;
+        feed.appendChild(div);
+        setTimeout(() => { div.remove(); }, 4000); // Удалить через 4 сек
+    }
+    setInterval(addNote, 6000); // Каждые 6 сек
 
-        // Дождь из денег
-        const rain = document.getElementById('rain');
-        for(let i=0; i<30; i++) {
-            let d = document.createElement('div');
-            d.style.position = 'absolute';
-            d.style.left = Math.random()*100+'vw';
-            d.style.top = '-50px';
-            d.style.color = '#ffd700';
-            d.innerText = '$';
-            d.style.fontSize = (Math.random()*20 + 10)+'px';
-            d.style.animation = `fall ${Math.random()*5+3}s linear infinite`;
-            d.style.animationDelay = Math.random()*5+'s';
-            rain.appendChild(d);
-        }
-    </script>
-    <style>
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    </style>
+    // Золотой дождь
+    const mBox = document.getElementById('money-box');
+    for(let i=0; i<30; i++) {
+        let s = document.createElement('div'); s.className='symbol'; s.innerText = '$';
+        s.style.left = Math.random()*100+'vw'; s.style.top = '-50px';
+        s.style.fontSize = Math.random()*25+15+'px'; s.style.animation = `fall ${Math.random()*4+4}s linear infinite`;
+        mBox.appendChild(s);
+    }
+</script>
+
 </body>
 </html>
