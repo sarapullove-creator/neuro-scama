@@ -3,39 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хозяин Нейросетей — Твой Путь к Миллиардам (Серьезно)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <title>ХОЗЯИН НЕЙРОСЕТЕЙ — ОФИЦИАЛЬНО</title>
     <style>
-        :root {
-            --gold: #ffd700;
-            --gold-light: #fcf6ba;
-            --gold-dark: #b38728;
-            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fcf6ba 75%, #aa771c 100%);
-            --dark-bg: #050505;
-            --glass: rgba(255, 215, 0, 0.03);
-            --glass-border: rgba(255, 215, 0, 0.15);
-        }
+        body { margin: 0; background: #000; color: #fff; font-family: 'Arial Black', sans-serif; text-align: center; overflow-x: hidden; }
+        section { min-height: 100vh; padding: 50px 20px; border-bottom: 2px dashed #333; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        h1 { color: #ffd700; font-size: 3.5rem; text-transform: uppercase; margin: 0; text-shadow: 0 0 20px #ff0000; }
+        .gold-text { color: #ffd700; font-size: 1.5rem; margin: 20px; font-style: italic; }
+        .btn { background: linear-gradient(45deg, #ff4e50, #f9d423); border: none; padding: 25px 50px; font-size: 1.8rem; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 10px 30px rgba(255,215,0,0.5); text-decoration: none; color: #000; display: inline-block; }
+        .card { background: #111; border: 2px solid #ffd700; padding: 30px; margin: 20px; border-radius: 20px; max-width: 500px; }
+        .emoji { font-size: 5rem; margin: 10px; }
+        #runaway-input { position: relative; padding: 15px; border: 2px solid #ffd700; background: #222; color: #fff; border-radius: 10px; width: 280px; cursor: not-allowed; font-weight: bold; }
+        #chat-btn { position: fixed; bottom: 20px; right: 20px; width: 70px; height: 70px; background: #ffd700; border-radius: 50%; font-size: 3rem; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 4px solid #fff; z-index: 100; }
+    </style>
+</head>
+<body>
 
-        * { box-sizing: border-box; scroll-behavior: smooth; margin: 0; padding: 0; }
-        
-        body {
-            background-color: var(--dark-bg);
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+    <section>
+        <div class="emoji">👑</div>
+        <h1>ХОЗЯИН НЕЙРОСЕТЕЙ</h1>
+        <p class="gold-text">Твой последний шанс отдать нам деньги!</p>
+        <div id="timer" style="font-size: 2rem; color: #ff4e50; margin: 20px;">ДО КОНЦА АКЦИИ: 05:00</div>
+        <a href="#" class="btn" onclick="alert('УСПЕХ! Деньги списаны, ожидайте яхту в течение 100 лет!')">ХОЧУ ПОТЕРЯТЬ ДЕНЬГИ</a>
+        <p style="margin-top: 40px; color: #555;">Листай вниз за мечтой ↓</p>
+    </section>
 
-        /* Общие стили для секций */
-        section { min-height: 100vh; padding: 100px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
-        h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 50px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
-        p.subtitle { font-size: 1.2rem; color: #aaa; max-width: 600px; margin-bottom: 40px; }
+    <section>
+        <h2>ТВОЯ ЖИЗНЬ ПОСЛЕ КУРСА:</h2>
+        <div class="card">
+            <div class="emoji">🚢</div>
+            <h3>ЛИЧНАЯ ЯХТА</h3>
+            <p>(Будет у Глеба, но ты сможешь на неё посмотреть в инсте)</p>
+        </div>
+        <div class="card">
+            <div class="emoji">🏝️</div>
+            <h3>ОСТРОВ БАЛИ</h3>
+            <p>Ты поедешь туда... когда-нибудь. Наверное.</p>
+        </div>
+        <div class="card">
+            <div class="emoji">💰</div>
+            <h3>КНОПКА "БАБЛО"</h3>
+            <p>Мы её нажали за тебя. Спасибо!</p>
+        </div>
+    </section>
 
-        /* Элементы Glassmorphism */
-        .glass-panel { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; backdrop-filter: blur(10px); padding: 40px; box-shadow: 0 10px 50px rgba(0,0,0,0.5); width: 100%; max-width: 1000px; }
+    <section>
+        <h2>ОТЗЫВЫ МИЛЛИОНЕРОВ:</h2>
+        <div class="card" style="font-style: italic;">
+            "Я продал квартиру и купил Вип-пакет. Теперь живу в коробке от холодильника, зато с нейросетями!" — <b>Вася, экс-инвестор</b>
+        </div>
+        <p>Оставь почту для ежедневного спама:</p>
+        <div style="height: 120px; width: 100%; position: relative;">
+            <input type="text" id="runaway-input" value="ВАША ПОЧТА..." readonly>
+        </div>
+    </section>
 
-        /* Кнопки */
-        .btn {
-            display: inline-block; padding: 20px 50px; font-size: 1.3rem; font-weight: 900; color: #000;
-            text-transform: uppercase; border-radius: 100px; cursor: pointer; text-decoration: none;
-            background: linear-gradient
+    <div id="chat-btn" onclick="alert('Глеб сейчас занят покупкой новой Ламбы на ваши деньги. Попробуйте никогда!')">👨🏻‍💼</div>
+
+    <script>
+        // Таймер
+        let s = 300;
+        setInterval(() => {
+            let m = Math.floor(s/60);
+            let sec = s%60;
+            document.getElementById('timer').innerText = `ДО КОНЦА АКЦИИ: ${m}:${sec<10?'0'+sec:sec}`;
+            if(s>0) s--; else s=300;
+        }, 1000);
+
+        // Убегающее поле
+        const inp = document.getElementById('runaway-input');
+        inp.onmouseover = () => {
+            inp.style.position = 'absolute';
+            inp.style.left = Math.random()*70 + '%';
+            inp.style.top = Math.random()*50 + 'px';
+        };
+    </script>
+
+</body>
+</html>
