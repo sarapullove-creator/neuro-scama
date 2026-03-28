@@ -3,103 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ОФОРМЛЕНИЕ ДОСТУПА — ХОЗЯИН НЕЙРОСЕТЕЙ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>ВЕРИФИКАЦИЯ — NEURO-GENESIS</title>
     <style>
-        body {
-            background: #050505; color: white; font-family: 'Montserrat', sans-serif;
-            display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0;
-            background-image: radial-gradient(circle at center, #111 0%, #000 100%);
-        }
-        .checkout-card {
-            background: rgba(255,215,0,0.03); border: 1px solid #ffd700; border-radius: 20px;
-            padding: 40px; width: 100%; max-width: 500px; text-align: center; backdrop-filter: blur(10px);
-            box-shadow: 0 0 50px rgba(255,215,0,0.1);
-        }
-        h1 { color: #ffd700; text-transform: uppercase; margin-bottom: 10px; }
-        .step { color: #666; font-size: 0.9rem; margin-bottom: 30px; }
-        input {
-            width: 100%; padding: 15px; margin: 10px 0; background: #111; border: 1px solid #333;
-            color: white; border-radius: 10px; outline: none; font-size: 1rem;
-        }
-        input:focus { border-color: #ffd700; }
-        .pay-btn {
-            background: linear-gradient(135deg, #bf953f, #fcf6ba); color: #000;
-            width: 100%; padding: 20px; border: none; border-radius: 50px;
-            font-weight: 900; font-size: 1.2rem; cursor: pointer; margin-top: 20px;
-            transition: 0.3s;
-        }
-        .pay-btn:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(255,215,0,0.4); }
-        .security { margin-top: 20px; font-size: 0.8rem; color: #444; display: flex; justify-content: center; gap: 10px; }
-        #loading { display: none; margin-top: 20px; }
-        .loader {
-            border: 4px solid #111; border-top: 4px solid #ffd700; border-radius: 50%;
-            width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        body { background: #020205; color: #00f2ff; font-family: 'Courier New', Courier, monospace; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .card { border: 1px solid #00f2ff; padding: 30px; max-width: 400px; width: 100%; text-transform: uppercase; }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; background: #000; border: 1px solid #bc13fe; color: #fff; outline: none; }
+        .btn { width: 100%; padding: 15px; background: #00f2ff; color: #000; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn:hover { background: #bc13fe; color: #fff; }
     </style>
 </head>
 <body>
-
-<div class="checkout-card">
-    <h1>ПОЧТИ ГОТОВО</h1>
-    <p class="step">ШАГ 2 ИЗ 3: ПРОВЕРКА ПЛАТЕЖЕСПОСОБНОСТИ</p>
-    
-    <div id="form-content">
-        <p style="text-align: left; font-size: 0.9rem; color: #aaa;">Введите данные для привязки карты:</p>
-        <input type="text" placeholder="Имя на карте (КАПСОМ)">
-        <input type="text" id="card-num" placeholder="Номер карты (16 цифр)" maxlength="19">
-        <div style="display: flex; gap: 10px;">
-            <input type="text" placeholder="ММ/ГГ" maxlength="5">
-            <input type="password" placeholder="CVV" maxlength="3">
-        </div>
-        
-        <button class="pay-btn" onclick="startPay()">ПОДТВЕРДИТЬ И РАЗБОГАТЕТЬ</button>
-        
-        <div class="security">
-            <span>🔒 SSL SECURE</span>
-            <span>🛡️ ANTI-FRAUD 2026</span>
-            <span>💰 CRYPTO READY</span>
-        </div>
+    <div class="card">
+        <h3>ИНИЦИАЛИЗАЦИЯ ЛИЧНОСТИ</h3>
+        <p style="font-size: 0.7rem; color: #555;">Введите данные для доступа к ядру системы</p>
+        <form id="f">
+            <input type="text" name="n" placeholder="Идентификатор (Имя)" required>
+            <input type="text" name="tg" placeholder="Telegram @ID" required>
+            <select name="status">
+                <option>ГОТОВ ПОКИНУТЬ МАТРИЦУ</option>
+                <option>ЕЩЕ СОМНЕВАЮСЬ</option>
+            </select>
+            <button type="submit" class="btn">ОТПРАВИТЬ ДАННЫЕ</button>
+        </form>
     </div>
-
-    <div id="loading">
-        <div class="loader"></div>
-        <p style="margin-top: 15px; color: #ffd700;">СВЯЗЬ С БАНКОМ...</p>
-        <p id="status-text" style="font-size: 0.8rem; color: #555;">Анализируем лимиты...</p>
-    </div>
-</div>
-
-<script>
-    function startPay() {
-        document.getElementById('form-content').style.display = 'none';
-        document.getElementById('loading').style.display = 'block';
-        
-        const statuses = [
-            "Проверка баланса...",
-            "Подключение к шлюзу ОАЭ...",
-            "Одобрение кредитного лимита...",
-            "Синхронизация с нейросетью...",
-            "ОШИБКА: Слишком много денег на счету!"
-        ];
-        
-        let i = 0;
-        const interval = setInterval(() => {
-            document.getElementById('status-text').innerText = statuses[i];
-            i++;
-            if(i >= statuses.length) {
-                clearInterval(interval);
-                alert("ВНИМАНИЕ! \n\nВаш банк заблокировал перевод из-за подозрений в слишком быстрой прибыли. \n\nСрочно свяжитесь с Оператором в чате на главной странице!");
-                window.location.href = "index.html";
-            }
-        }, 2000);
-    }
-
-    // Маска для карты
-    document.getElementById('card-num').addEventListener('input', function (e) {
-        e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim();
-    });
-</script>
-
+    <script>
+        document.getElementById('f').onsubmit = (e) => {
+            e.preventDefault();
+            alert("Критическая ошибка доступа: Твой уровень осознанности слишком высок для текущего тарифа. Оператор свяжется с тобой вручную.");
+            window.location.href = "index.html";
+        };
+    </script>
 </body>
 </html>
