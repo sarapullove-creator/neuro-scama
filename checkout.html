@@ -3,35 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ВЕРИФИКАЦИЯ — NEURO-GENESIS</title>
+    <title>ВЕРИФИКАЦИЯ РЕЗИДЕНТА | NEURO-GENESIS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        body { background: #020205; color: #00f2ff; font-family: 'Courier New', Courier, monospace; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-        .card { border: 1px solid #00f2ff; padding: 30px; max-width: 400px; width: 100%; text-transform: uppercase; }
-        input, select { width: 100%; padding: 10px; margin: 10px 0; background: #000; border: 1px solid #bc13fe; color: #fff; outline: none; }
-        .btn { width: 100%; padding: 15px; background: #00f2ff; color: #000; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .btn:hover { background: #bc13fe; color: #fff; }
+        :root {
+            --primary: #bc13fe; 
+            --secondary: #00f2ff; 
+            --bg: #020205;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(188, 19, 254, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: var(--bg); 
+            color: #fff; 
+            font-family: 'Space Grotesk', sans-serif; 
+            display: flex; align-items: center; justify-content: center; 
+            min-height: 100vh; overflow: hidden;
+        }
+
+        #canvas-bg { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; opacity: 0.3; }
+
+        .checkout-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            backdrop-filter: blur(20px);
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 50px rgba(188, 19, 254, 0.1);
+        }
+
+        h2 { font-family: 'Orbitron'; color: var(--secondary); margin-bottom: 10px; font-size: 1.5rem; letter-spacing: 2px; }
+        p.step { color: var(--primary); font-size: 0.7rem; font-weight: bold; margin-bottom: 30px; letter-spacing: 3px; }
+
+        input, select {
+            width: 100%; padding: 15px; margin: 10px 0;
+            background: rgba(0,0,0,0.5); border: 1px solid #222;
+            color: #fff; outline: none; transition: 0.3s;
+            font-family: inherit;
+        }
+        input:focus { border-color: var(--secondary); box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
+
+        .submit-btn {
+            width: 100%; padding: 20px; margin-top: 20px;
+            background: var(--primary); color: #fff;
+            border: none; font-family: 'Orbitron'; font-weight: 900;
+            cursor: pointer; transition: 0.4s; letter-spacing: 1px;
+        }
+        .submit-btn:hover { background: var(--secondary); color: #000; box-shadow: 0 0 30px var(--secondary); }
+
+        #loading { display: none; }
+        .loader { border: 2px solid #111; border-top: 2px solid var(--secondary); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .status-msg { font-family: monospace; font-size: 0.8rem; color: #555; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h3>ИНИЦИАЛИЗАЦИЯ ЛИЧНОСТИ</h3>
-        <p style="font-size: 0.7rem; color: #555;">Введите данные для доступа к ядру системы</p>
-        <form id="f">
-            <input type="text" name="n" placeholder="Идентификатор (Имя)" required>
-            <input type="text" name="tg" placeholder="Telegram @ID" required>
-            <select name="status">
-                <option>ГОТОВ ПОКИНУТЬ МАТРИЦУ</option>
-                <option>ЕЩЕ СОМНЕВАЮСЬ</option>
+
+    <canvas id="canvas-bg"></canvas>
+
+    <div class="checkout-card">
+        <h2>ИДЕНТИФИКАЦИЯ</h2>
+        <p class="step">STAGE: PERSONAL_DATA_ENTRY</p>
+        
+        <form id="reg-form">
+            <input type="hidden" name="_subject" value="Новая заявка в NEURO-GENESIS">
+            
+            <input type="text" name="name" placeholder="ВАШЕ ИМЯ" required>
+            <input type="text" name="telegram" placeholder="TELEGRAM @ID" required>
+            
+            <select name="tier">
+                <option value="slave">ТАРИФ: РАБ СИСТЕМЫ (49к)</option>
+                <option value="player">ТАРИФ: ИГРОК (150к)</option>
+                <option value="master" selected>ТАРИФ: ХОЗЯИН (500к)</option>
+                <option value="god">ТАРИФ: БОГ (2.5м)</option>
+                <option value="overlord">ТАРИФ: OVERLORD (10м)</option>
             </select>
-            <button type="submit" class="btn">ОТПРАВИТЬ ДАННЫЕ</button>
+
+            <button type="submit" class="submit-btn">ОТПРАВИТЬ ЗАПРОС</button>
         </form>
+
+        <div id="loading">
+            <div class="loader"></div>
+            <p style="color: var(--secondary); font-family: 'Orbitron'; font-size: 0.8rem;">СИНХРОНИЗАЦИЯ...</p>
+            <div class="status-msg" id="status-log">> Проверка протоколов...</div>
+        </div>
     </div>
+
     <script>
-        document.getElementById('f').onsubmit = (e) => {
+        const form = document.getElementById('reg-form');
+        const loading = document.getElementById('loading');
+        const log = document.getElementById('status-log');
+
+        form.onsubmit = async (e) => {
             e.preventDefault();
-            alert("Критическая ошибка доступа: Твой уровень осознанности слишком высок для текущего тарифа. Оператор свяжется с тобой вручную.");
-            window.location.href = "index.html";
+            form.style.display = 'none';
+            loading.style.display = 'block';
+
+            // Имитация работы нейросети
+            const messages = [
+                "> Шифрование канала...",
+                "> Поиск свободных слотов...",
+                "> Подключение к узлу ОАЭ...",
+                "> ОШИБКА: ЛИМИТ ИСЧЕРПАН"
+            ];
+
+            let i = 0;
+            const interval = setInterval(() => {
+                log.innerText = messages[i];
+                i++;
+                if(i >= messages.length) {
+                    clearInterval(interval);
+                    alert("КРИТИЧЕСКАЯ ОШИБКА:\n\nСистема обнаружила слишком высокий потенциал прибыли для данного региона. \n\nВаша заявка поставлена в очередь. Свяжитесь с Оператором в чате для ручного подтверждения.");
+                    window.location.href = "index.html";
+                }
+            }, 1500);
         };
+
+        // Тот же фон, что и на главной
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let p = [];
+        for(let i=0; i<60; i++) p.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5});
+        function animate() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.fillStyle = '#bc13fe';
+            p.forEach(part => {
+                ctx.beginPath(); ctx.arc(part.x, part.y, part.r, 0, Math.PI*2); ctx.fill();
+                part.y -= 0.5; if(part.y < 0) part.y = canvas.height;
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
     </script>
 </body>
 </html>
