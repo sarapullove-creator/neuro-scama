@@ -15,68 +15,66 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: #fff; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        body { background: var(--bg); color: #fff; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; scroll-behavior: smooth; padding-bottom: 60px; }
 
         /* Progress Bar */
-        #progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(to right, var(--primary), var(--secondary)); z-index: 1001; width: 0%; transition: 0.1s; }
+        #progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(to right, var(--primary), var(--secondary)); z-index: 1001; width: 0%; }
 
         header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 20px 50px; display: flex; justify-content: space-between; align-items: center;
             background: rgba(2, 2, 5, 0.9); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
         }
-        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--secondary); letter-spacing: 2px; cursor: pointer; }
+        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--secondary); letter-spacing: 2px; }
         nav a { color: #fff; text-decoration: none; margin-left: 25px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; opacity: 0.7; }
-        nav a:hover { opacity: 1; color: var(--secondary); text-shadow: 0 0 10px var(--secondary); }
-        .login-btn { border: 1px solid var(--primary); padding: 8px 20px; border-radius: 3px; color: var(--primary); cursor: pointer; }
+        nav a:hover { opacity: 1; color: var(--secondary); }
+        .login-btn { border: 1px solid var(--primary); padding: 8px 20px; border-radius: 3px; color: var(--primary); cursor: pointer; margin-left: 20px; }
 
         #canvas-bg { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; opacity: 0.3; }
 
         section { min-height: 100vh; padding: 120px 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { max-width: 1100px; width: 100%; }
+        .container { max-width: 1200px; width: 100%; }
 
         .reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2.5rem, 10vw, 6rem); text-align: center; line-height: 1; margin-bottom: 30px; background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        h2 { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 60px; text-align: center; color: var(--secondary); text-transform: uppercase; letter-spacing: 3px; }
+        h2 { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 60px; text-align: center; color: var(--secondary); text-transform: uppercase; }
 
-        /* --- TEAM SECTION --- */
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 100px; }
-        .team-card { background: var(--glass); border: 1px solid var(--border); padding: 20px; text-align: center; transition: 0.3s; }
-        .team-card:hover { border-color: var(--secondary); transform: translateY(-10px); }
-        .team-img { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; object-fit: cover; border: 2px solid var(--primary); padding: 5px; }
-        .team-card h3 { font-family: 'Orbitron'; font-size: 1rem; color: var(--secondary); }
-        .team-card p { font-size: 0.8rem; color: #777; margin-top: 5px; }
+        /* --- ТАРИФЫ (FIXED) --- */
+        .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; width: 100%; }
+        .plan-card { background: var(--glass); border: 1px solid var(--border); padding: 30px; display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; }
+        .plan-card:hover { border-color: var(--secondary); transform: translateY(-5px); background: rgba(255,255,255,0.05); }
+        .plan-card.featured { border: 2px solid var(--secondary); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
+        .plan-card h3 { font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 15px; }
+        .price { font-size: 2.5rem; font-weight: 700; color: var(--secondary); margin-bottom: 20px; }
+        .plan-features { list-style: none; font-size: 0.8rem; color: #888; margin-bottom: 30px; text-align: left; }
+        .plan-features li { margin-bottom: 8px; }
 
-        /* --- DASHBOARD MODAL --- */
+        /* --- КАЛЬКУЛЯТОР --- */
+        .calc-box { background: var(--glass); border: 1px solid var(--border); padding: 40px; border-radius: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-bottom: 100px; }
+        input[type=range] { width: 100%; accent-color: var(--primary); margin: 15px 0; cursor: pointer; }
+
+        /* --- КОМАНДА --- */
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 100px; }
+        .team-card { background: var(--glass); border: 1px solid var(--border); padding: 20px; text-align: center; }
+        .team-img { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 15px; border: 2px solid var(--primary); object-fit: cover; }
+
+        /* --- КНОПКИ --- */
+        .main-btn { background: var(--primary); color: #fff; padding: 15px 30px; border-radius: 2px; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; display: inline-block; transition: 0.4s; border: none; cursor: pointer; text-align: center; }
+        .main-btn:hover { background: var(--secondary); color: #000; box-shadow: 0 0 20px var(--secondary); }
+
+        /* --- БЕГУЩАЯ СТРОКА --- */
+        .marquee-container { background: #000; border-top: 1px solid #111; padding: 12px 0; overflow: hidden; white-space: nowrap; position: fixed; bottom: 0; width: 100%; z-index: 1000; }
+        .marquee-text { display: inline-block; animation: marquee 40s linear infinite; font-family: monospace; font-size: 0.7rem; color: #444; }
+
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- DASHBOARD --- */
         #dash-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
-        .dash-window { width: 100%; max-width: 900px; background: #0a0a0f; border: 1px solid var(--secondary); padding: 30px; position: relative; font-family: monospace; }
-        .dash-header { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 15px; margin-bottom: 20px; color: var(--secondary); }
-        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .stat-box { border: 1px solid #111; padding: 20px; background: rgba(255,255,255,0.01); }
-        .stat-val { font-size: 1.5rem; color: #fff; margin-top: 5px; }
-        .close-dash { position: absolute; top: -40px; right: 0; color: #fff; cursor: pointer; font-size: 1.5rem; }
+        .dash-window { width: 100%; max-width: 600px; background: #0a0a0f; border: 1px solid var(--secondary); padding: 30px; font-family: monospace; }
 
-        /* --- BUTTONS --- */
-        .main-btn { background: var(--primary); color: #fff; padding: 18px 40px; border-radius: 2px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 0 20px var(--primary); transition: 0.4s; display: inline-block; border: none; cursor: pointer; }
-        .main-btn:hover { background: var(--secondary); color: #000; box-shadow: 0 0 30px var(--secondary); transform: scale(1.05); }
-
-        /* --- TIMELINE --- */
-        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
-        .timeline::before { content: ''; position: absolute; left: 50%; width: 1px; height: 100%; background: var(--border); }
-        .timeline-item { margin-bottom: 60px; width: 100%; display: flex; justify-content: space-between; }
-        .timeline-content { width: 45%; padding: 25px; background: var(--glass); border: 1px solid var(--border); border-radius: 5px; }
-        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
-
-        @media (max-width: 768px) {
-            header { padding: 15px 20px; }
-            nav { display: none; }
-            .timeline::before { left: 20px; }
-            .timeline-content { width: 85%; margin-left: 40px; }
-            .timeline-item { flex-direction: row !important; }
-            .stat-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } }
     </style>
 </head>
 <body>
@@ -86,8 +84,8 @@
     <header>
         <div class="logo">NEURO.GEN</div>
         <nav>
-            <a href="#transform">Путь</a>
-            <a href="#luxury">Активы</a>
+            <a href="#hero">Главная</a>
+            <a href="#analytics">Прогноз</a>
             <a href="#team">Команда</a>
             <a href="#plans">Тарифы</a>
             <span class="login-btn" onclick="openDash()">ВХОД</span>
@@ -98,34 +96,27 @@
 
     <section id="hero">
         <div class="container" style="text-align: center;">
-            <p style="color: var(--secondary); font-family: 'Orbitron'; letter-spacing: 10px; margin-bottom: 25px;">CORE VERSION 2.6.0</p>
-            <h1>ВЗЛОМАЙ<br>БУДУЩЕЕ</h1>
-            <p style="color: #666; font-size: 1.1rem; margin-bottom: 45px; max-width: 650px; margin-inline: auto;">Единственный проект, где Искусственный Интеллект работает на твою финансовую независимость 24/7.</p>
-            <a href="#plans" class="main-btn">ПОЛУЧИТЬ ДОСТУП</a>
+            <p style="color: var(--secondary); font-family: 'Orbitron'; letter-spacing: 8px; margin-bottom: 20px;">SYSTEM STATUS: ONLINE</p>
+            <h1>УПРАВЛЯЙ<br>МАТРИЦЕЙ</h1>
+            <p style="color: #666; margin-bottom: 40px; max-width: 600px; margin-inline: auto;">Первый в мире AI-агрегатор для автоматического извлечения прибыли из цифровых активов.</p>
+            <a href="#plans" class="main-btn" style="font-size: 1.2rem; padding: 20px 50px;">ПОЛУЧИТЬ ДОСТУП</a>
         </div>
     </section>
 
-    <section id="transform" class="reveal">
+    <section id="analytics" class="reveal">
         <div class="container">
-            <h2>ЭВОЛЮЦИЯ</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3 style="color: var(--secondary)">01. ПОДКЛЮЧЕНИЕ</h3>
-                        <p>Синхронизация ваших аккаунтов с нейронным ядром Neuro.Gen.</p>
-                    </div>
+            <h2>ПРОГНОЗ ДОХОДНОСТИ</h2>
+            <div class="calc-box">
+                <div>
+                    <p style="color: var(--secondary); font-size: 0.8rem;">ВЫБЕРИТЕ МОЩНОСТЬ (AI CORES):</p>
+                    <input type="range" id="cores" min="1" max="100" value="12">
+                    <p style="color: var(--secondary); font-size: 0.8rem; margin-top: 20px;">ПЕРИОД (ДНИ):</p>
+                    <input type="range" id="days" min="7" max="365" value="30">
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3 style="color: var(--primary)">02. ГЕНЕРАЦИЯ</h3>
-                        <p>Алгоритмы начинают поиск и эксплуатацию рыночных аномалий.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3 style="color: var(--secondary)">03. СВОБОДА</h3>
-                        <p>Вывод прибыли на любые крипто-кошельки в один клик.</p>
-                    </div>
+                <div style="text-align: center; border-left: 1px solid #111;">
+                    <p style="color: #444; font-size: 0.7rem;">ВАША ПРИБЫЛЬ СОСТАВИТ:</p>
+                    <div id="calc-result" style="font-size: 3.5rem; font-family: 'Orbitron'; color: #fff; text-shadow: 0 0 15px var(--primary);">$0.00</div>
+                    <p style="color: #0f0; font-size: 0.7rem; margin-top: 10px; font-family: monospace;">[✓] АЛГОРИТМ ПОДТВЕРЖДЕН</p>
                 </div>
             </div>
         </div>
@@ -136,107 +127,131 @@
             <h2>АРХИТЕКТОРЫ</h2>
             <div class="team-grid">
                 <div class="team-card">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" class="team-img" alt="team">
-                    <h3>АЛЕКС ГРЕЙ</h3>
-                    <p>Lead AI Architect (ex-OpenAI)</p>
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" class="team-img">
+                    <h3>ALEX GREY</h3>
+                    <p>Founder & Visionary</p>
                 </div>
                 <div class="team-card">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80" class="team-img" alt="team">
-                    <h3>ЕЛЕНА КРАУС</h3>
-                    <p>Blockchain Security Expert</p>
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80" class="team-img">
+                    <h3>ELENA K.</h3>
+                    <p>AI Architecture</p>
                 </div>
                 <div class="team-card">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" class="team-img" alt="team">
-                    <h3>МАРК ВУЛЬФ</h3>
-                    <p>Strategic Expansion Officer</p>
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" class="team-img">
+                    <h3>MARK W.</h3>
+                    <p>Security Lead</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="plans" class="reveal">
-        <div class="container" style="text-align: center;">
-            <h2>ВЫБЕРИ СВОЙ ТАРИФ</h2>
-            <p style="color: #444; margin-bottom: 50px;">Инвестиция, которая окупается за 14 дней.</p>
-            <a href="checkout.html" class="main-btn">ПЕРЕЙТИ К ОФОРМЛЕНИЮ</a>
+        <div class="container">
+            <h2>ВЫБЕРИ СТЕПЕНЬ СВОБОДЫ</h2>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>РАБ СИСТЕМЫ</h3>
+                    <div class="price">49к</div>
+                    <ul class="plan-features"><li>Доступ к чату</li><li>1 активная нейросеть</li><li>Задержка выплат 30 дней</li></ul>
+                    <a href="checkout.html" class="main-btn">ВЫБРАТЬ</a>
+                </div>
+                <div class="plan-card">
+                    <h3>ИГРОК</h3>
+                    <div class="price">150к</div>
+                    <ul class="plan-features"><li>Закрытый канал</li><li>3 нейросети</li><li>Приоритетный вывод</li></ul>
+                    <a href="checkout.html" class="main-btn">ВЫБРАТЬ</a>
+                </div>
+                <div class="plan-card featured">
+                    <h3>ХОЗЯИН</h3>
+                    <div class="price">500к</div>
+                    <ul class="plan-features"><li>ЛИЧНОЕ КУРАТОРСТВО</li><li>Все нейросети</li><li>Схемы масштабирования</li></ul>
+                    <a href="checkout.html" class="main-btn" style="background: var(--secondary); color: #000;">ВЫБРАТЬ</a>
+                </div>
+                <div class="plan-card">
+                    <h3>БОГ</h3>
+                    <div class="price">2.5м</div>
+                    <ul class="plan-features"><li>Вилла (аренда)</li><li>Доступ к ядру</li><li>Индивидуальный софт</li></ul>
+                    <a href="checkout.html" class="main-btn">ВЫБРАТЬ</a>
+                </div>
+                <div class="plan-card">
+                    <h3>OVERLORD</h3>
+                    <div class="price">10м</div>
+                    <ul class="plan-features"><li>Доля в компании</li><li>Личный джет</li><li>Бессмертие (Beta)</li></ul>
+                    <a href="checkout.html" class="main-btn">ВЫБРАТЬ</a>
+                </div>
+            </div>
         </div>
     </section>
 
     <div id="dash-overlay">
         <div class="dash-window">
-            <span class="close-dash" onclick="closeDash()">✕ ЗАКРЫТЬ ТЕРМИНАЛ</span>
-            <div class="dash-header">
-                <div>USER: GUEST_7741</div>
-                <div>STATUS: <span style="color: #0f0;">ACTIVE_SCANNING</span></div>
-            </div>
-            <div class="stat-grid">
-                <div class="stat-box">
-                    <div style="color: #555; font-size: 0.7rem;">ТЕКУЩИЙ БАЛАНС</div>
-                    <div class="stat-val" id="balance">0.0000 BTC</div>
-                </div>
-                <div class="stat-box">
-                    <div style="color: #555; font-size: 0.7rem;">АКТИВНЫЕ НЕЙРОСЕТИ</div>
-                    <div class="stat-val" style="color: var(--secondary);">0 / 12</div>
-                </div>
-                <div class="stat-box">
-                    <div style="color: #555; font-size: 0.7rem;">ПРИБЫЛЬ ЗА 24Ч</div>
-                    <div class="stat-val" style="color: var(--primary);">+0.00$</div>
-                </div>
-            </div>
-            <div style="margin-top: 30px; border: 1px solid #111; padding: 15px; font-size: 0.7rem; color: #333; height: 100px; overflow: hidden;" id="console">
-                > Connecting to neural node... OK<br>
-                > Bypassing proxy filters... OK<br>
-                > Analyzing market data... WAIT
-            </div>
-            <p style="margin-top: 20px; color: #f00; font-size: 0.8rem; text-align: center;">⚠ ВНИМАНИЕ: ДЛЯ АКТИВАЦИИ ВЫВОДА СРЕДСТВ ТРЕБУЕТСЯ ПОДТВЕРЖДЕННЫЙ ТАРИФ</p>
+            <h3 style="color: var(--secondary); margin-bottom: 20px;">TERMINAL_ACCESS_V4</h3>
+            <p>> LOGIN: GUEST_USER</p>
+            <p>> STATUS: <span style="color: #f00;">UNAUTHORIZED</span></p>
+            <div style="margin: 20px 0; border: 1px solid #222; padding: 10px; height: 100px; overflow: hidden; font-size: 0.7rem; color: #444;" id="console"></div>
+            <p style="color: var(--primary); font-size: 0.8rem;">ДЛЯ АКТИВАЦИИ ТЕРМИНАЛА ВЫБЕРИТЕ ТАРИФ</p>
+            <button onclick="closeDash()" class="main-btn" style="margin-top: 20px; width: 100%;">ЗАКРЫТЬ</button>
+        </div>
+    </div>
+
+    <div class="marquee-container">
+        <div class="marquee-text">
+            <span style="margin-right: 50px;"><span style="color: var(--secondary);">[OK]</span> User_882 вывел 0.12 BTC...</span>
+            <span style="margin-right: 50px;"><span style="color: var(--secondary);">[OK]</span> Node_Alpha: Сгенерирована прибыль +$4,200...</span>
+            <span style="margin-right: 50px;"><span style="color: var(--secondary);">[OK]</span> Новая активация тарифа "OVERLORD"...</span>
+            <span style="margin-right: 50px;"><span style="color: var(--secondary);">[OK]</span> User_001: Вывод средств подтвержден...</span>
+            <span style="margin-right: 50px;"><span style="color: var(--secondary);">[OK]</span> User_882 вывел 0.12 BTC...</span>
+            <span style="margin-right: 50px;"><span style="color: var(--secondary);">[OK]</span> Node_Alpha: Сгенерирована прибыль +$4,200...</span>
         </div>
     </div>
 
     <script>
-        // Progress bar
+        // Скролл-анимация
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             let scrolled = (winScroll / height) * 100;
             document.getElementById("progress").style.width = scrolled + "%";
             
-            // Reveal on scroll
             document.querySelectorAll('.reveal').forEach(el => {
                 if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
             });
         };
 
-        // Dashboard logic
-        function openDash() { document.getElementById('dash-overlay').style.display = 'flex'; startSim(); }
+        // Калькулятор
+        const cores = document.getElementById('cores');
+        const days = document.getElementById('days');
+        const res = document.getElementById('calc-result');
+        function updateCalc() {
+            let val = (cores.value * 155) + (days.value * 310);
+            res.innerText = "$" + val.toLocaleString();
+        }
+        cores.oninput = updateCalc;
+        days.oninput = updateCalc;
+        updateCalc();
+
+        // Дашборд
+        function openDash() { 
+            document.getElementById('dash-overlay').style.display = 'flex'; 
+            const c = document.getElementById('console');
+            setInterval(() => {
+                c.innerHTML += `> SCANNING_NODE_${Math.floor(Math.random()*99)}... ERROR<br>`;
+                c.scrollTop = c.scrollHeight;
+            }, 1000);
+        }
         function closeDash() { document.getElementById('dash-overlay').style.display = 'none'; }
 
-        function startSim() {
-            let b = 0;
-            const balEl = document.getElementById('balance');
-            const conEl = document.getElementById('console');
-            
-            const int = setInterval(() => {
-                b += Math.random() * 0.0001;
-                balEl.innerText = b.toFixed(6) + " BTC";
-                conEl.innerHTML += `<br>> FETCH DATA PACKET_${Math.floor(Math.random()*999)}... OK`;
-                conEl.scrollTop = conEl.scrollHeight;
-                if(b > 0.005) clearInterval(int);
-            }, 2000);
-        }
-
-        // Particles Background
+        // Частицы фона
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         let p = [];
-        for(let i=0; i<100; i++) p.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5});
+        for(let i=0; i<80; i++) p.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5});
         function animate() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = '#bc13fe';
+            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = '#bc13fe';
             p.forEach(part => {
                 ctx.beginPath(); ctx.arc(part.x, part.y, part.r, 0, Math.PI*2); ctx.fill();
-                part.y -= 0.5; if(part.y < 0) part.y = canvas.height;
+                part.y -= 0.3; if(part.y < 0) part.y = canvas.height;
             });
             requestAnimationFrame(animate);
         }
