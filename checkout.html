@@ -11,7 +11,7 @@
             --secondary: #00f2ff; 
             --bg: #020205;
             --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(188, 19, 254, 0.5);
+            --border: rgba(188, 19, 254, 0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,7 +20,7 @@
             color: #fff; 
             font-family: 'Space Grotesk', sans-serif; 
             display: flex; align-items: center; justify-content: center; 
-            min-height: 100vh; overflow: hidden;
+            min-height: 100vh; overflow: hidden; padding: 20px;
         }
 
         #canvas-bg { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; opacity: 0.3; }
@@ -30,37 +30,49 @@
             border: 1px solid var(--border);
             padding: 40px;
             width: 100%;
-            max-width: 450px;
-            backdrop-filter: blur(20px);
+            max-width: 480px;
+            backdrop-filter: blur(25px);
             text-align: center;
             position: relative;
-            box-shadow: 0 0 50px rgba(188, 19, 254, 0.1);
+            box-shadow: 0 0 60px rgba(188, 19, 254, 0.15);
         }
 
-        h2 { font-family: 'Orbitron'; color: var(--secondary); margin-bottom: 10px; font-size: 1.5rem; letter-spacing: 2px; }
-        p.step { color: var(--primary); font-size: 0.7rem; font-weight: bold; margin-bottom: 30px; letter-spacing: 3px; }
+        .checkout-card::before {
+            content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), transparent, var(--secondary));
+            z-index: -1; opacity: 0.3;
+        }
+
+        h2 { font-family: 'Orbitron'; color: var(--secondary); margin-bottom: 5px; font-size: 1.6rem; letter-spacing: 2px; }
+        .status-tag { color: var(--primary); font-size: 0.65rem; font-weight: bold; margin-bottom: 30px; letter-spacing: 4px; text-transform: uppercase; }
+
+        .timer-box { background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.2); padding: 10px; margin-bottom: 25px; font-size: 0.8rem; color: #ff4d4d; }
 
         input, select {
-            width: 100%; padding: 15px; margin: 10px 0;
-            background: rgba(0,0,0,0.5); border: 1px solid #222;
+            width: 100%; padding: 16px; margin: 12px 0;
+            background: rgba(0,0,0,0.6); border: 1px solid #222;
             color: #fff; outline: none; transition: 0.3s;
-            font-family: inherit;
+            font-family: inherit; font-size: 0.9rem;
         }
-        input:focus { border-color: var(--secondary); box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
+        input:focus { border-color: var(--secondary); box-shadow: 0 0 15px rgba(0, 242, 255, 0.2); }
 
         .submit-btn {
-            width: 100%; padding: 20px; margin-top: 20px;
-            background: var(--primary); color: #fff;
+            width: 100%; padding: 20px; margin-top: 25px;
+            background: linear-gradient(90deg, var(--primary), #8a2be2); color: #fff;
             border: none; font-family: 'Orbitron'; font-weight: 900;
-            cursor: pointer; transition: 0.4s; letter-spacing: 1px;
+            cursor: pointer; transition: 0.4s; letter-spacing: 2px; text-transform: uppercase;
         }
-        .submit-btn:hover { background: var(--secondary); color: #000; box-shadow: 0 0 30px var(--secondary); }
+        .submit-btn:hover { transform: scale(1.02); box-shadow: 0 0 30px var(--primary); }
 
-        #loading { display: none; }
-        .loader { border: 2px solid #111; border-top: 2px solid var(--secondary); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto; }
+        /* Loader */
+        #loading { display: none; padding: 40px 0; }
+        .loader-ring { border: 2px solid rgba(188, 19, 254, 0.1); border-top: 2px solid var(--secondary); border-radius: 50%; width: 60px; height: 60px; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        .status-msg { font-family: monospace; font-size: 0.8rem; color: #555; margin-top: 10px; }
+        .console-text { font-family: monospace; font-size: 0.75rem; color: #555; height: 20px; }
+        
+        .back-link { display: block; margin-top: 20px; color: #444; text-decoration: none; font-size: 0.7rem; letter-spacing: 1px; }
+        .back-link:hover { color: var(--secondary); }
     </style>
 </head>
 <body>
@@ -69,72 +81,82 @@
 
     <div class="checkout-card">
         <h2>ИДЕНТИФИКАЦИЯ</h2>
-        <p class="step">STAGE: PERSONAL_DATA_ENTRY</p>
+        <p class="status-tag">Status: Awaiting_Entry</p>
         
+        <div class="timer-box">
+            БРОНЬ МЕСТА ИСТЕКАЕТ ЧЕРЕЗ: <span id="timer">05:00</span>
+        </div>
+
         <form id="reg-form">
-            <input type="hidden" name="_subject" value="Новая заявка в NEURO-GENESIS">
-            
-            <input type="text" name="name" placeholder="ВАШЕ ИМЯ" required>
+            <input type="text" name="name" placeholder="ВАШЕ ИМЯ / ПОЗЫВНОЙ" required>
             <input type="text" name="telegram" placeholder="TELEGRAM @ID" required>
             
-            <select name="tier">
-                <option value="slave">ТАРИФ: РАБ СИСТЕМЫ (49к)</option>
-                <option value="player">ТАРИФ: ИГРОК (150к)</option>
-                <option value="master" selected>ТАРИФ: ХОЗЯИН (500к)</option>
-                <option value="god">ТАРИФ: БОГ (2.5м)</option>
-                <option value="overlord">ТАРИФ: OVERLORD (10м)</option>
+            <select name="tier" id="tier-select">
+                <option value="49k">РАБ СИСТЕМЫ — 49,000 ₽</option>
+                <option value="150k">ИГРОК — 150,000 ₽</option>
+                <option value="500k" selected>ХОЗЯИН — 500,000 ₽</option>
+                <option value="2.5m">БОГ — 2,500,000 ₽</option>
+                <option value="10m">OVERLORD — 10,000,000 ₽</option>
             </select>
 
-            <button type="submit" class="submit-btn">ОТПРАВИТЬ ЗАПРОС</button>
+            <button type="submit" class="submit-btn">ПОДТВЕРДИТЬ ЛИЧНОСТЬ</button>
+            <a href="index.html" class="back-link">← ВЕРНУТЬСЯ НА ГЛАВНУЮ</a>
         </form>
 
         <div id="loading">
-            <div class="loader"></div>
-            <p style="color: var(--secondary); font-family: 'Orbitron'; font-size: 0.8rem;">СИНХРОНИЗАЦИЯ...</p>
-            <div class="status-msg" id="status-log">> Проверка протоколов...</div>
+            <div class="loader-ring"></div>
+            <h3 style="font-family: 'Orbitron'; color: var(--secondary); font-size: 1rem; margin-bottom: 10px;">АНАЛИЗ ДАННЫХ</h3>
+            <div class="console-text" id="log-msg">> Инициализация протокола...</div>
         </div>
     </div>
 
     <script>
         const form = document.getElementById('reg-form');
         const loading = document.getElementById('loading');
-        const log = document.getElementById('status-log');
+        const log = document.getElementById('log-msg');
 
-        form.onsubmit = async (e) => {
+        // Таймер (просто для вида)
+        let time = 300;
+        setInterval(() => {
+            let m = Math.floor(time / 60);
+            let s = time % 60;
+            document.getElementById('timer').innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+            if(time > 0) time--;
+        }, 1000);
+
+        // Обработка формы
+        form.onsubmit = (e) => {
             e.preventDefault();
             form.style.display = 'none';
             loading.style.display = 'block';
 
-            // Имитация работы нейросети
-            const messages = [
-                "> Шифрование канала...",
-                "> Поиск свободных слотов...",
-                "> Подключение к узлу ОАЭ...",
-                "> ОШИБКА: ЛИМИТ ИСЧЕРПАН"
+            const msgs = [
+                "> Проверка Telegram ID...",
+                "> Синхронизация с нейросетью...",
+                "> Расчет кредитного плеча...",
+                "> КРИТИЧЕСКАЯ ОШИБКА ДОСТУПА"
             ];
 
             let i = 0;
-            const interval = setInterval(() => {
-                log.innerText = messages[i];
+            const step = setInterval(() => {
+                log.innerText = msgs[i];
                 i++;
-                if(i >= messages.length) {
-                    clearInterval(interval);
-                    alert("КРИТИЧЕСКАЯ ОШИБКА:\n\nСистема обнаружила слишком высокий потенциал прибыли для данного региона. \n\nВаша заявка поставлена в очередь. Свяжитесь с Оператором в чате для ручного подтверждения.");
+                if(i >= msgs.length) {
+                    clearInterval(step);
+                    alert("ВНИМАНИЕ: Прямой доступ заблокирован.\n\nВаш уровень амбиций требует ручного подтверждения Оператором. Мы свяжемся с вами в Telegram в течение 10 минут.");
                     window.location.href = "index.html";
                 }
-            }, 1500);
+            }, 1800);
         };
 
-        // Тот же фон, что и на главной
+        // Фон (частицы)
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         let p = [];
         for(let i=0; i<60; i++) p.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5});
         function animate() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = '#bc13fe';
+            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = '#bc13fe';
             p.forEach(part => {
                 ctx.beginPath(); ctx.arc(part.x, part.y, part.r, 0, Math.PI*2); ctx.fill();
                 part.y -= 0.5; if(part.y < 0) part.y = canvas.height;
